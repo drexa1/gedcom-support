@@ -1,0 +1,12 @@
+<idea-plugin>
+    <id>gedcom-support</id>
+    <name>GEDCOM Syntax Support</name>
+    <version>1.0.0</version>
+    <vendor email="drexa1@hotmail.com">Diego Ruiz</vendor>
+    <change-notes>
+        Initial release.
+    </change-notes>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType"/>
+    </extensions>
+</idea-plugin>

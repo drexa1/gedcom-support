@@ -1,0 +1,28 @@
+name: Build IntelliJ Plugin
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v4
+      - name: Install Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.14
+      - name: Set Gradle user home to /tmp
+        run: echo "GRADLE_USER_HOME=/tmp/gradle" >> $GITHUB_ENV
+      - name: Build IntelliJ plugin
+        run: |
+          gradle clean buildPlugin
+      - name: Upload plugin zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-distribution
+          path: build/distributions/*.zip
