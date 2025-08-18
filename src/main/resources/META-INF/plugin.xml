@@ -7,6 +7,8 @@
         Initial release.
     </change-notes>
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType"/>
+        <fileType name="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType" fieldName="INSTANCE" language="GEDCOM" extensions="gedcom"/>
+        <fileTypeFactory implementation="org.drexa1.gedcom.GedcomFileTypeFactory"/>
+        <syntaxHighlighterFactory implementation="org.drexa1.gedcom.GedcomSyntaxHighlighter"/>
     </extensions>
 </idea-plugin>
