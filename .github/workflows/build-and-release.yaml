@@ -1,16 +1,18 @@
-name: Build IntelliJ Plugin
+name: Build Idea Plugin
 
 on:
   push:
     branches: [ main ]
-  pull_request:
+    paths-ignore:
+      - ".github/**"
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout sources
+      - name: Checkout repo
         uses: actions/checkout@v4
       - name: Install Gradle
         uses: gradle/actions/setup-gradle@v3
