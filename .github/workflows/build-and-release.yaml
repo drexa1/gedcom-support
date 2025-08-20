@@ -42,7 +42,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.props.outputs.version }}
-          name: Release v${{ steps.props.outputs.version }}
+          name: v${{ steps.props.outputs.version }}
           files: build/distributions/*.zip
           draft: false
           prerelease: false
