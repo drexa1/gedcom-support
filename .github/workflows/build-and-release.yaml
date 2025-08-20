@@ -38,13 +38,16 @@ jobs:
         run: |
           VERSION=$(grep '^pluginVersion=' gradle.properties | cut -d'=' -f2)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-      - name: Create/Update release
+      - name: Create or update release
         run: |
-          gh release create v${{ steps.props.outputs.version }} build/distributions/*.zip \
-            --title "v${{ steps.props.outputs.version }}" \
-            --notes "Release of version ${{ steps.props.outputs.version }}" \
-            --prerelease=false \
-            --draft=false \
-            --clobber
+          VERSION=v${{ steps.props.outputs.version }}
+          ZIP=build/distributions/*.zip
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            echo "Release $VERSION exists, uploading assets..."
+            gh release upload "$VERSION" $ZIP --clobber
+          else
+            echo "Creating release $VERSION..."
+            gh release create "$VERSION" $ZIP --title "$VERSION" --notes "Release $VERSION" --prerelease=false
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
