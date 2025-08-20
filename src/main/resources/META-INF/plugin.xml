@@ -1,14 +1,23 @@
 <idea-plugin>
     <id>gedcom-support</id>
     <name>GEDCOM Syntax Support</name>
-    <version>1.0.0</version>
+    <version>${version}</version>
     <vendor email="drexa1@hotmail.com">Diego Ruiz</vendor>
+    <description>
+        This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.
+    </description>
     <change-notes>
-        Initial release.
+        <![CDATA[
+        Version 1.0.1:
+        - Fixed gedcom files IDE icon
+        ]]>
     </change-notes>
+    <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType" fieldName="INSTANCE" language="GEDCOM" extensions="gedcom"/>
-        <fileTypeFactory implementation="org.drexa1.gedcom.GedcomFileTypeFactory"/>
-        <syntaxHighlighterFactory implementation="org.drexa1.gedcom.GedcomSyntaxHighlighter"/>
+        <fileType
+                name="GEDCOM File"
+                language="GEDCOM"
+                extensions="ged"
+                implementationClass="org.drexa1.gedcom.GedcomFileType"/>
     </extensions>
 </idea-plugin>
