@@ -1,1 +1,1 @@
-rootProject.name = "gedcom-highlighter"
+rootProject.name = "GEDCOM"
