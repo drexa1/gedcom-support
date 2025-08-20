@@ -18,6 +18,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: 8.14
+          cache-read-only: true
       - name: Set Gradle output to /tmp
         run: echo "GRADLE_USER_HOME=/tmp/gradle" >> $GITHUB_ENV
       - name: Build IntelliJ plugin
@@ -28,3 +29,19 @@ jobs:
         with:
           name: plugin-distribution
           path: build/distributions/*.zip
+          compression-level: 0
+      - name: Read version from gradle.properties
+        id: props
+        run: |
+          VERSION=$(grep '^pluginVersion=' gradle.properties | cut -d'=' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      - name: Create/Update Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.props.outputs.version }}
+          name: Release v${{ steps.props.outputs.version }}
+          files: build/distributions/*.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
