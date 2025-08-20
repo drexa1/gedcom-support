@@ -19,8 +19,7 @@ class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
     }
 
     override fun getHighlightingLexer(): Lexer {
-        // GedcomLexerAdapter wraps your generated JFlex lexer
-        return GedcomLexerAdapter()
+        return GedcomLexer()
     }
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {

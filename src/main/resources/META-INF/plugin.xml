@@ -15,5 +15,6 @@
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="GEDCOM File" language="GEDCOM" extensions="ged" implementationClass="org.drexa1.gedcom.GedcomFileType"/>
+        <lang.syntaxHighlighterFactory language="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomSyntaxHighlighterFactory"/>
     </extensions>
 </idea-plugin>
