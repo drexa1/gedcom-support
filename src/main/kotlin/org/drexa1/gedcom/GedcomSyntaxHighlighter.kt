@@ -6,30 +6,33 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
 
+
+object GedcomTextAttributes {
+    // Paragraph type colors
+    val HEAD = TextAttributesKey.createTextAttributesKey("HEAD", DefaultLanguageHighlighterColors.KEYWORD)
+    val TRLR = TextAttributesKey.createTextAttributesKey("TRLR", DefaultLanguageHighlighterColors.KEYWORD)
+    val SOUR = TextAttributesKey.createTextAttributesKey("SOUR", DefaultLanguageHighlighterColors.KEYWORD)
+    val INDI = TextAttributesKey.createTextAttributesKey("INDI", DefaultLanguageHighlighterColors.NUMBER)
+    val FAM  = TextAttributesKey.createTextAttributesKey("FAM", DefaultLanguageHighlighterColors.NUMBER)
+    // Values share color with paragraph type
+    val VALUE = TextAttributesKey.createTextAttributesKey("VALUE", DefaultLanguageHighlighterColors.STRING)
+    val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("BAD_CHARACTER", DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE)
+}
+
 class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
 
-    companion object {
-        val LEVEL_ATTR: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_LEVEL", DefaultLanguageHighlighterColors.NUMBER)
-        val META: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_VALUE", DefaultLanguageHighlighterColors.KEYWORD)
-        val INDI_ID: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_TAG", DefaultLanguageHighlighterColors.STRING)
-        val FAM_ID: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_VALUE", DefaultLanguageHighlighterColors.STRING)
-        val TAG: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_VALUE", DefaultLanguageHighlighterColors.KEYWORD)
-        val VALUE: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_VALUE", DefaultLanguageHighlighterColors.STRING)
-        val BAD_CHARACTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey("GEDCOM_ID", DefaultLanguageHighlighterColors.HIGHLIGHTED_REFERENCE)
-    }
+    var currentParagraphType: TextAttributesKey = GedcomTextAttributes.VALUE
 
-    override fun getHighlightingLexer(): Lexer {
-        return GedcomLexer()
-    }
+    override fun getHighlightingLexer(): Lexer = GedcomLexer(this)
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
-        GedcomTokenTypes.LEVEL         -> arrayOf(LEVEL_ATTR)
-        GedcomTokenTypes.META          -> arrayOf(META)
-        GedcomTokenTypes.INDI_ID       -> arrayOf(INDI_ID)
-        GedcomTokenTypes.FAM_ID        -> arrayOf(FAM_ID)
-        GedcomTokenTypes.TAG           -> arrayOf(TAG)
-        GedcomTokenTypes.VALUE         -> arrayOf(VALUE)
-        GedcomTokenTypes.BAD_CHARACTER -> arrayOf(BAD_CHARACTER)
-        else                           -> emptyArray()
+        GedcomTokenTypes.LEVEL,
+        GedcomTokenTypes.TAG,
+        GedcomTokenTypes.META,
+        GedcomTokenTypes.VALUE -> arrayOf(currentParagraphType)
+        GedcomTokenTypes.INDI_ID -> arrayOf(GedcomTextAttributes.INDI)
+        GedcomTokenTypes.FAM_ID -> arrayOf(GedcomTextAttributes.FAM)
+        GedcomTokenTypes.BAD_CHARACTER -> arrayOf(GedcomTextAttributes.BAD_CHARACTER)
+        else -> emptyArray()
     }
 }

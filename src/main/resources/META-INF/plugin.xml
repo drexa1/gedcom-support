@@ -8,6 +8,8 @@
     </description>
     <change-notes>
         <![CDATA[
+        Version 1.2.0:
+        - Several bugs fixed in the lexer
         Version 1.1.0:
         - Improved lexer
         Version 1.0.1:

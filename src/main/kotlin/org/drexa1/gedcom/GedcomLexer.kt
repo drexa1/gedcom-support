@@ -3,21 +3,22 @@ package org.drexa1.gedcom
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
 
-class GedcomLexer : LexerBase() {
-    private var buffer: CharSequence = ""
-    private var startOffset = 0
-    private var endOffset = 0
+class GedcomLexer(private val highlighter: GedcomSyntaxHighlighter) : LexerBase() {
+    private lateinit var buffer: CharSequence
     private var tokenStart = 0
     private var tokenEnd = 0
+    private var endOffset = 0
     private var tokenType: IElementType? = null
+    private var insideMultiLine = false
+    private var multiLineType: IElementType? = null
 
     override fun start(buffer: CharSequence, startOffset: Int, endOffset: Int, initialState: Int) {
         this.buffer = buffer
-        this.startOffset = startOffset
+        this.tokenStart = startOffset
+        this.tokenEnd = startOffset
         this.endOffset = endOffset
-        tokenStart = startOffset
-        tokenEnd = startOffset
-        tokenType = null
+        this.insideMultiLine = false
+        advance()
     }
 
     override fun advance() {
@@ -25,20 +26,49 @@ class GedcomLexer : LexerBase() {
             tokenType = null
             return
         }
+
         tokenStart = tokenEnd
-        // Find end of line
         val lineEnd = buffer.indexOf('\n', tokenStart).let { if (it == -1) endOffset else it + 1 }
-        val line = buffer.subSequence(tokenStart, lineEnd).toString()
-        // Reset tokenEnd for next advance
+        val line = buffer.subSequence(tokenStart, lineEnd).toString().trimEnd()
         tokenEnd = lineEnd
-        // Simple parsing logic
+
+        if (insideMultiLine) {
+            if (line.matches(Regex("^0\\b.*"))) {
+                insideMultiLine = false
+                advance()
+                return
+            } else {
+                tokenType = multiLineType
+                highlighter.currentParagraphType = GedcomTextAttributes.VALUE
+                return
+            }
+        }
+
+        // Multi-line tags
+        if (line.matches(Regex("^\\d+\\s+(NOTE|CONC|CONT)\\b.*"))) {
+            insideMultiLine = true
+            multiLineType = GedcomTokenTypes.VALUE
+            highlighter.currentParagraphType = GedcomTextAttributes.VALUE
+            tokenType = GedcomTokenTypes.VALUE
+            return
+        }
+
+        // Set paragraph color based on first token
+        highlighter.currentParagraphType = when {
+            line.startsWith("0 HEAD") -> GedcomTextAttributes.HEAD
+            line.startsWith("0 TRLR") -> GedcomTextAttributes.TRLR
+            line.startsWith("0 SOUR") -> GedcomTextAttributes.SOUR
+            line.startsWith("0 @I")   -> GedcomTextAttributes.INDI
+            line.startsWith("0 @F")   -> GedcomTextAttributes.FAM
+            else -> GedcomTextAttributes.VALUE
+        }
+
+        // Detect token type
         tokenType = when {
-            line.matches(Regex("^\\d+.*")) -> GedcomTokenTypes.LEVEL
             line.matches(Regex("^0\\s+@I[^@]+@\\s+INDI.*")) -> GedcomTokenTypes.INDI_ID
             line.matches(Regex("^0\\s+@F[^@]+@\\s+FAM.*")) -> GedcomTokenTypes.FAM_ID
-            line.matches(Regex("^0\\s+[A-Z]+.*")) -> GedcomTokenTypes.META
-            line.matches(Regex("^[1-9][0-9]*\\s+[A-Z]+.*")) -> GedcomTokenTypes.TAG
-            else -> GedcomTokenTypes.BAD_CHARACTER
+            line.matches(Regex("^\\d+\\s+[A-Z]+.*")) -> GedcomTokenTypes.TAG
+            else -> GedcomTokenTypes.VALUE
         }
     }
 
