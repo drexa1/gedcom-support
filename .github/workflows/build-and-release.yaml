@@ -38,13 +38,13 @@ jobs:
         run: |
           VERSION=$(grep '^pluginVersion=' gradle.properties | cut -d'=' -f2)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-      - name: Create/Update Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.props.outputs.version }}
-          name: v${{ steps.props.outputs.version }}
-          files: build/distributions/*.zip
-          draft: false
-          prerelease: false
+      - name: Create/Update release
+        run: |
+          gh release create v${{ steps.props.outputs.version }} build/distributions/*.zip \
+            --title "v${{ steps.props.outputs.version }}" \
+            --notes "Release of version ${{ steps.props.outputs.version }}" \
+            --prerelease=false \
+            --draft=false \
+            --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
