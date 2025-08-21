@@ -25,7 +25,7 @@ jobs:
         run: echo "GRADLE_USER_HOME=/tmp/gradle" >> $GITHUB_ENV
       - name: Build IntelliJ plugin
         run: |
-          gradle clean buildPlugin
+          gradle clean buildPlugin -x buildSearchableOptions
       - name: Upload plugin zip
         uses: actions/upload-artifact@v4
         with:
