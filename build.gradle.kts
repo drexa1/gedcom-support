@@ -61,7 +61,7 @@ changelog {
 
 tasks {
     generateLexer {
-        sourceFile.set(file("src/main/grammars/LTV.flex"))
+        sourceFile.set(file("src/main/grammars/gedcom.flex"))
         targetOutputDir.set(file("src/main/generated/org/drexa1/gedcom/highlighter"))
         purgeOldFiles.set(true)
     }

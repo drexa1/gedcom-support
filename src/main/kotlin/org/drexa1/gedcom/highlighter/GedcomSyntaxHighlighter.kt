@@ -1,6 +1,5 @@
 package org.drexa1.gedcom.highlighter
 
-import com.intellij.lexer.FlexAdapter
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.HighlighterColors
@@ -18,7 +17,9 @@ class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
         val BAD_CHARACTER: TextAttributesKey   = HighlighterColors.BAD_CHARACTER
     }
 
-    override fun getHighlightingLexer(): Lexer = FlexAdapter(LTVGedcomLexer(null))
+//    override fun getHighlightingLexer(): Lexer = FlexAdapter(FlexGedcomLexer(null))
+
+    override fun getHighlightingLexer(): Lexer = GedcomLexer()
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
         GedcomTokens.LEVEL -> arrayOf(GedcomTextAttributes.LEVEL)

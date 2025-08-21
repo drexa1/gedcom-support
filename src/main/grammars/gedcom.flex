@@ -5,7 +5,7 @@ import org.drexa1.gedcom.highlighter.GedcomTokens;
 
 %%
 %public
-%class LTVGedcomLexer
+%class FlexGedcomLexer
 %implements com.intellij.lexer.FlexLexer
 %unicode
 %function advance

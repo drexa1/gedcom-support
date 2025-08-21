@@ -1,13 +1,13 @@
 package org.drexa1.gedcom
 
 import com.intellij.lexer.FlexAdapter
+import org.drexa1.gedcom.highlighter.FlexGedcomLexer
 import org.drexa1.gedcom.highlighter.GedcomTokens
-import org.drexa1.gedcom.highlighter.LTVGedcomLexer
 import java.io.File
 import kotlin.test.Test
 
 @Suppress("MISSING_DEPENDENCY_SUPERCLASS_WARNING")
-class TestLTVGedcomLexer {
+class TestGedcomLexer {
 
     @Test
     fun testLexer() {
@@ -15,7 +15,8 @@ class TestLTVGedcomLexer {
         val resource = object {}.javaClass.classLoader.getResource("sample.ged")
             ?: throw IllegalArgumentException("sample.ged not found")
         val gedcomText = File(resource.toURI()).readText()
-        val lexer = FlexAdapter(LTVGedcomLexer(null))
+        val lexer = FlexAdapter(FlexGedcomLexer(null))
+//        val lexer = GedcomLexer()
         lexer.start(gedcomText)
         // GIVEN
         while (true) {
