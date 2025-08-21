@@ -2,6 +2,7 @@ package org.drexa1.gedcom.highlighter
 
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
+import com.intellij.openapi.editor.HighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
@@ -10,10 +11,10 @@ import org.drexa1.gedcom.GedcomLanguage
 class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
 
     object GedcomTextAttributes {
-        val LEVEL = TextAttributesKey.createTextAttributesKey("LEVEL", DefaultLanguageHighlighterColors.KEYWORD)
-        val TAG   = TextAttributesKey.createTextAttributesKey("TAG", DefaultLanguageHighlighterColors.KEYWORD)
-        val VALUE = TextAttributesKey.createTextAttributesKey("VALUE", DefaultLanguageHighlighterColors.STRING)
-        val BAD_CHARACTER = TextAttributesKey.createTextAttributesKey("BAD_CHARACTER", DefaultLanguageHighlighterColors.INVALID_STRING_ESCAPE)
+        val LEVEL: TextAttributesKey           = TextAttributesKey.createTextAttributesKey("LEVEL", DefaultLanguageHighlighterColors.KEYWORD)
+        val TAG: TextAttributesKey             = TextAttributesKey.createTextAttributesKey("TAG", DefaultLanguageHighlighterColors.KEYWORD)
+        val VALUE: TextAttributesKey           = TextAttributesKey.createTextAttributesKey("VALUE", DefaultLanguageHighlighterColors.STRING)
+        val BAD_CHARACTER: TextAttributesKey   = HighlighterColors.BAD_CHARACTER
     }
 
     companion object Tokens {
@@ -23,7 +24,7 @@ class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
         val BAD_CHARACTER = IElementType("BAD_CHARACTER", GedcomLanguage)
     }
 
-    override fun getHighlightingLexer(): Lexer = GedcomLexer()
+    override fun getHighlightingLexer(): Lexer = _GedcomLexer()
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
         LEVEL -> arrayOf(GedcomTextAttributes.LEVEL)
