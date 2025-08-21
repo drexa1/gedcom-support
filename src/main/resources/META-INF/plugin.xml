@@ -6,16 +6,6 @@
     <description>
         This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.
     </description>
-    <change-notes>
-        <![CDATA[
-        Version 1.2.0:
-        - Several bugs fixed in the lexer
-        Version 1.1.0:
-        - Improved lexer
-        Version 1.0.1:
-        - Fixed gedcom files IDE icon
-        ]]>
-    </change-notes>
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="GEDCOM File" language="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType" extensions="ged"/>
