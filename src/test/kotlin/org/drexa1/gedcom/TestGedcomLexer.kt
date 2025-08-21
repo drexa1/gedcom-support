@@ -1,7 +1,6 @@
 package org.drexa1.gedcom
 
-import com.intellij.lexer.FlexAdapter
-import org.drexa1.gedcom.highlighter.FlexGedcomLexer
+import GedcomLexer
 import org.drexa1.gedcom.highlighter.GedcomTokens
 import java.io.File
 import kotlin.test.Test
@@ -15,7 +14,8 @@ class TestGedcomLexer {
         val resource = object {}.javaClass.classLoader.getResource("sample.ged")
             ?: throw IllegalArgumentException("sample.ged not found")
         val gedcomText = File(resource.toURI()).readText()
-        val lexer = FlexAdapter(FlexGedcomLexer(null))
+        // val lexer = FlexAdapter(FlexGedcomLexer(null))
+        val lexer = GedcomLexer()
         lexer.start(gedcomText)
         // GIVEN
         while (true) {
