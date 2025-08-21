@@ -9,7 +9,6 @@ plugins {
     id("org.jetbrains.intellij.platform") version "2.7.2"
     id("org.jetbrains.grammarkit") version "2022.3.2.2"
     id("org.jetbrains.changelog") version "2.2.0"
-    id("com.diffplug.spotless") version "6.24.0"
 }
 
 repositories {
@@ -49,10 +48,6 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-spotless {
-    kotlin { targetExclude("src/main/generated/**") }
-}
-
 tasks.withType<PatchPluginXmlTask> {
     version = project.version.toString()
 }
@@ -66,9 +61,8 @@ changelog {
 
 tasks {
     generateLexer {
-        sourceFile.set(file("src/main/grammars/gedcom.flex"))
+        sourceFile.set(file("src/main/grammars/LTV.flex"))
         targetOutputDir.set(file("src/main/generated/org/drexa1/gedcom/highlighter"))
-        targetFile("GedcomLexer")
         purgeOldFiles.set(true)
     }
     compileKotlin {

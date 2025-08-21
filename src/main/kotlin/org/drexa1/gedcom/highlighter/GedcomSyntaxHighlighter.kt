@@ -18,7 +18,7 @@ class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
         val BAD_CHARACTER: TextAttributesKey   = HighlighterColors.BAD_CHARACTER
     }
 
-    override fun getHighlightingLexer(): Lexer = FlexAdapter(GedcomLexer(null))
+    override fun getHighlightingLexer(): Lexer = FlexAdapter(LTVGedcomLexer(null))
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
         GedcomTokens.LEVEL -> arrayOf(GedcomTextAttributes.LEVEL)

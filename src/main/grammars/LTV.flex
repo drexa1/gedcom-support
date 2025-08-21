@@ -5,7 +5,7 @@ import org.drexa1.gedcom.highlighter.GedcomTokens;
 
 %%
 %public
-%class GedcomLexer
+%class LTVGedcomLexer
 %implements com.intellij.lexer.FlexLexer
 %unicode
 %function advance
@@ -14,9 +14,9 @@ import org.drexa1.gedcom.highlighter.GedcomTokens;
 %{
 
 // Detect numeric level
-private boolean isLevel(String text) {
+boolean isLevel(String text) {
     try {
-        Integer.parseInt(text);
+        Integer.parseInt(text.trim());
         return true;
     } catch (NumberFormatException e) {
         return false;
