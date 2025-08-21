@@ -7,7 +7,7 @@ import java.io.File
 import kotlin.test.Test
 
 @Suppress("MISSING_DEPENDENCY_SUPERCLASS_WARNING")
-class TestGedcomLexer {
+class TestLTVGedcomLexer {
 
     @Test
     fun testLexer() {
