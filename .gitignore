@@ -2,6 +2,7 @@
 /shelf/
 .gradle
 .idea/
+.intellijPlatform
 .vscode/
 build/
 /workspace.xml
