@@ -1,13 +1,21 @@
 package org.drexa1.gedcom
 
 import java.io.File
+import kotlin.test.Test
 
-fun main() {
-    val resource = object {}.javaClass.classLoader.getResource("sample.ged")
-        ?: throw IllegalArgumentException("sample.ged not found")
-    val gedcomText = File(resource.toURI()).readText()
+class TestGedcomLexer {
 
-    val lexer = GedcomLexer()
-    lexer.start(gedcomText)
-    // TODO: implement
+    @Test
+    fun testLexer() {
+        val resource = object {}.javaClass.classLoader.getResource("sample.ged")
+            ?: throw IllegalArgumentException("sample.ged not found")
+        val gedcomText = File(resource.toURI()).readText()
+
+        val lexer = GedcomLexer()
+        lexer.start(gedcomText)
+        while (lexer.tokenType != null) {
+            println(lexer.tokenType)
+            lexer.advance()
+        }
+    }
 }

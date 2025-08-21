@@ -25,6 +25,7 @@ dependencies {
             useInstaller = true
         }
     }
+    testImplementation(kotlin("test"))
 }
 
 tasks.withType<PatchPluginXmlTask> {
