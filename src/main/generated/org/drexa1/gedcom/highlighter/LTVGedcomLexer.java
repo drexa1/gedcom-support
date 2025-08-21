@@ -63,9 +63,9 @@ public class LTVGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\1\1\1\2\3\3\22\0\1\1\17\0\12\4"+
-    "\6\0\1\5\32\6\1\0\1\7\2\0\1\10\16\0"+
-    "\1\7\26\0\1\3\u01a2\0\2\3\326\0\u0100\3";
+    "\11\0\1\1\1\2\2\3\1\4\22\0\1\1\17\0"+
+    "\12\5\6\0\1\6\32\7\4\0\1\10\45\0\1\3"+
+    "\u01a2\0\2\3\326\0\u0100\3";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -92,8 +92,8 @@ public class LTVGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\1\3\1\4\1\1\1\5\1\1"+
-    "\1\2\1\3\1\6\1\4\1\1\1\5\1\0\1\6"+
+    "\2\0\1\1\1\2\1\3\1\0\1\4\1\1\1\5"+
+    "\1\1\1\2\1\6\1\4\1\1\1\5\1\0\1\6"+
     "\2\7";
 
   private static int [] zzUnpackAction() {
@@ -123,8 +123,8 @@ public class LTVGedcomLexer implements com.intellij.lexer.FlexLexer {
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\11\0\22\0\33\0\22\0\44\0\55\0\66"+
-    "\0\77\0\110\0\77\0\77\0\121\0\132\0\143\0\154"+
-    "\0\165\0\22\0\77";
+    "\0\77\0\110\0\121\0\110\0\132\0\143\0\154\0\165"+
+    "\0\176\0\22\0\110";
 
   private static int [] zzUnpackRowMap() {
     int [] result = new int[19];
@@ -150,17 +150,18 @@ public class LTVGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\5\1\0\1\6\1\7\1\10\1\3"+
-    "\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17"+
-    "\1\3\1\17\12\0\1\4\13\0\1\6\10\0\1\20"+
-    "\1\0\1\20\10\0\1\10\1\0\1\10\7\14\1\0"+
-    "\2\14\1\12\5\14\1\0\5\14\1\15\2\14\1\0"+
-    "\5\14\1\21\1\14\1\21\1\0\7\14\1\17\1\0"+
-    "\1\17\4\0\1\20\1\22\1\20\2\0\4\14\1\21"+
-    "\1\23\1\21\1\0\1\14";
+    "\1\3\1\4\1\5\1\0\1\6\1\7\1\10\2\11"+
+    "\1\12\1\13\1\5\1\14\1\6\1\15\1\16\2\17"+
+    "\12\0\1\4\11\0\1\5\13\0\1\7\10\0\1\20"+
+    "\1\0\1\20\10\0\2\11\2\14\1\0\1\14\1\0"+
+    "\5\14\1\13\1\0\1\14\1\0\6\14\1\0\1\14"+
+    "\1\0\1\15\5\14\1\0\1\14\1\0\1\21\1\14"+
+    "\1\21\3\14\1\0\1\14\1\0\2\14\2\17\5\0"+
+    "\1\20\1\22\1\20\1\0\2\14\1\0\1\14\1\0"+
+    "\1\21\1\23\1\21\1\14";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[126];
+    int [] result = new int[135];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -198,8 +199,8 @@ public class LTVGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\1\11\1\1\1\11\12\1\1\0\1\1\1\11"+
-    "\1\1";
+    "\2\0\1\11\1\1\1\11\1\0\11\1\1\0\1\1"+
+    "\1\11\1\1";
 
   private static int [] zzUnpackAttribute() {
     int [] result = new int[19];
@@ -541,10 +542,10 @@ boolean isLevel(String text) {
           case 10: break;
           case 4:
             { if (isLevel(yytext().toString())) {
-        return GedcomTokens.LEVEL;
-    } else {
-        return GedcomTokens.BAD_CHARACTER;
-    }
+                                return GedcomTokens.LEVEL;
+                            } else {
+                                return GedcomTokens.BAD_CHARACTER;
+                            }
             }
           // fall through
           case 11: break;
@@ -555,7 +556,7 @@ boolean isLevel(String text) {
           case 12: break;
           case 6:
             { yybegin(YYINITIAL);
-    return GedcomTokens.VALUE;
+                            return GedcomTokens.VALUE;
             }
           // fall through
           case 13: break;

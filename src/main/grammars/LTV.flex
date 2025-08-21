@@ -29,27 +29,36 @@ boolean isLevel(String text) {
 
 %%
 
-[ \t]+                     { /* skip whitespace */ }
+// Skip spaces and tabs
+[ \t]+                  { /* skip whitespace */ }
 
-[0-9]+                     {
-if (isLevel(yytext().toString())) {
-        return GedcomTokens.LEVEL;
-    } else {
-        return GedcomTokens.BAD_CHARACTER;
-    }
-}
+/* Skip newline, but update lexer state */
+(\r?\n)                 { /* skip newline */ }
 
-@[A-Z0-9]+@                { return GedcomTokens.VALUE; }  // cross-reference ID
+/* Level numbers (0,1,2...) */
+[0-9]+                  {
+                            if (isLevel(yytext().toString())) {
+                                return GedcomTokens.LEVEL;
+                            } else {
+                                return GedcomTokens.BAD_CHARACTER;
+                            }
+                        }
 
-[A-Z_]+                     { return GedcomTokens.TAG; }
+/* Tags: all caps letters and underscores */
+[A-Z_]+                 { return GedcomTokens.TAG; }
 
-\n                          { /* skip newline */ }
+/* Cross-reference IDs like @I0@ */
+@[A-Z0-9]+@             { return GedcomTokens.VALUE; }
 
-.                          { yybegin(VALUE_STATE); return GedcomTokens.VALUE; }
+/* Everything else in VALUE state */
+.                       { yybegin(VALUE_STATE); return GedcomTokens.VALUE; }
 
-<VALUE_STATE>[^\\n]+        {
-    yybegin(YYINITIAL);
-    return GedcomTokens.VALUE;
-}
 
-.                           { return GedcomTokens.BAD_CHARACTER; }
+/* ======= VALUE_STATE rules ======= */
+<VALUE_STATE>[^\n\r]+   {
+                            yybegin(YYINITIAL);
+                            return GedcomTokens.VALUE;
+                        }
+
+/* Any remaining single characters that don’t match above */
+.                       { return GedcomTokens.BAD_CHARACTER; }
