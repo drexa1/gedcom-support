@@ -40,7 +40,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Create or update release
         run: |
-          VERSION=v${{ steps.props.outputs.version }}
+          VERSION=${{ steps.props.outputs.version }}
           ZIP=build/distributions/*.zip
           if gh release view "$VERSION" >/dev/null 2>&1; then
             echo "Release $VERSION exists, uploading assets..."
