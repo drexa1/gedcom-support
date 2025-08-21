@@ -1,10 +1,11 @@
-package org.drexa1.gedcom
+package org.drexa1.gedcom.highlighter
 
 import com.intellij.lexer.Lexer
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors
 import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase
 import com.intellij.psi.tree.IElementType
+import org.drexa1.gedcom.GedcomLanguage
 
 class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
 
@@ -16,13 +17,11 @@ class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
     }
 
     companion object Tokens {
-        val LEVEL = GedcomTokenType("LEVEL")
-        val TAG = GedcomTokenType("TAG")
-        val VALUE = GedcomTokenType("VALUE")
-        val BAD_CHARACTER = GedcomTokenType("BAD_CHARACTER")
+        val LEVEL = IElementType("LEVEL", GedcomLanguage)
+        val TAG = IElementType("TAG", GedcomLanguage)
+        val VALUE = IElementType("VALUE", GedcomLanguage)
+        val BAD_CHARACTER = IElementType("BAD_CHARACTER", GedcomLanguage)
     }
-
-    class GedcomTokenType(debugName: String) : IElementType(debugName, GedcomLanguage)
 
     override fun getHighlightingLexer(): Lexer = GedcomLexer()
 

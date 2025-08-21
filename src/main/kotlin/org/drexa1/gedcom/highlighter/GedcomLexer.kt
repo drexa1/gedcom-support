@@ -1,4 +1,4 @@
-package org.drexa1.gedcom
+package org.drexa1.gedcom.highlighter
 
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType

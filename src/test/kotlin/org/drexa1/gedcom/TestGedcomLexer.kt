@@ -1,5 +1,6 @@
 package org.drexa1.gedcom
 
+import org.drexa1.gedcom.highlighter.GedcomLexer
 import java.io.File
 import kotlin.test.Test
 
