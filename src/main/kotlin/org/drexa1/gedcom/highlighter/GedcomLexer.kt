@@ -3,7 +3,6 @@ package org.drexa1.gedcom.highlighter
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
 
-
 class GedcomLexer : LexerBase() {
     private lateinit var buffer: CharSequence
     private var tokenStart = 0
