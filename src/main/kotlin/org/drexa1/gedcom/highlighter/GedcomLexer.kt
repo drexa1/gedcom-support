@@ -23,7 +23,6 @@ class GedcomLexer : LexerBase() {
             tokenType = null
             return
         }
-
         tokenStart = tokenEnd
         val lineEnd = buffer.indexOf('\n', tokenStart).let { if (it == -1) endOffset else it + 1 }
         val line = buffer.subSequence(tokenStart, lineEnd).toString().trim()
