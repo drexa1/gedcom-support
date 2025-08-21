@@ -37,7 +37,7 @@ jobs:
         id: props
         run: |
           VERSION=$(grep '^pluginVersion=' gradle.properties | cut -d'=' -f2)
-          echo "version:" $VERSION
+          echo "version=$VERSION"
           echo "version=$VERSION" >> $GITHUB_OUTPUT
       - name: Create or update release
         run: |
