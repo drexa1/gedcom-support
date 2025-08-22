@@ -20,7 +20,6 @@ class TestGedcomLexer {
         while (true) {
             val tokenType = lexer.tokenType ?: break
             val tokenText = lexer.bufferSequence.subSequence(lexer.tokenStart, lexer.tokenEnd).toString()
-            println("Token '$tokenText' -> $tokenType")
             // THEN
             when (tokenType) {
                 GedcomTokens.LEVEL -> assert(tokenText.toIntOrNull() != null)

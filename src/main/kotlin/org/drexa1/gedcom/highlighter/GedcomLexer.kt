@@ -6,14 +6,9 @@ import org.drexa1.gedcom.GedcomTags
 import org.drexa1.gedcom.GedcomTokens
 import java.lang.Character.isWhitespace
 import kotlin.concurrent.atomics.AtomicInt
+import org.drexa1.gedcom.highlighter.GedcomSyntaxHighlighter.Pointer
 
 data class GedcomLTV(var level: Int?, var id: String?, var tag: String?, var value: String?)
-
-enum class Pointer {
-    G, // Generic pointer (ie: UUID)
-    I, // INDI ID
-    F // FAM ID
-}
 
 @kotlin.concurrent.atomics.ExperimentalAtomicApi
 class GedcomLexer : LexerBase() {
@@ -52,6 +47,8 @@ class GedcomLexer : LexerBase() {
             return
         }
         tokenStart.store(startOffset.load()) // save the start before consuming
+        // Clear previous token length
+        tokenLength.store(0)
         val ch = buffer[startOffset.load()]
         tokenType = when {
             ch == '\n' -> {
@@ -74,10 +71,27 @@ class GedcomLexer : LexerBase() {
         when (tokenType) {
             GedcomTokens.LEVEL, GedcomTokens.INDI_POINTER, GedcomTokens.FAM_POINTER, GedcomTokens.TAG, GedcomTokens.VALUE ->
                 startOffset.addAndFetch(tokenLength.load())
-            else ->
+            else -> {
                 startOffset.addAndFetch(1)
+                tokenLength.addAndFetch(1)
+            }
         }
         tokenEnd.store(startOffset.load())
+        verify()
+    }
+
+    fun verify() {
+        try {
+            assert(getTokenEnd() > getTokenStart()) { "tokenStart < tokenEnd" }
+            assert(tokenLength.load() == tokenSequence.length) { "offset length > token length" }
+            println("token: <<${if (tokenType == GedcomTokens.NEW_LINE_INDENT) "\\n" else tokenSequence}>> - " +
+                    "tokenStart: '${getTokenStart()}', " +
+                    "tokenEnd: ${getTokenEnd()} " +
+                    "(tokenLength: $tokenLength) -> " +
+                    "tokenType: $tokenType")
+        } catch(e: Exception) {
+            println("ERROR: ${e.message}")
+        }
     }
 
     fun isLevel(): Boolean {

@@ -10,6 +10,12 @@ import org.drexa1.gedcom.GedcomTokens
 
 class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
 
+    enum class Pointer {
+        G, // Generic pointer (ie: UUID)
+        I, // INDI ID
+        F // FAM ID
+    }
+
     object GedcomTextAttributes {
         val LEVEL: TextAttributesKey           = TextAttributesKey.createTextAttributesKey("LEVEL", DefaultLanguageHighlighterColors.KEYWORD)
         val AT: TextAttributesKey              = TextAttributesKey.createTextAttributesKey("AT", DefaultLanguageHighlighterColors.KEYWORD)
