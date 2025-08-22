@@ -1,0 +1,9 @@
+#!/usr/bin/env just --justfile
+
+generate-cert:
+    echo "Generating plugin signing key..."
+    openssl genpkey -aes-256-cbc -algorithm RSA -out gedcom-support.pem -pkeyopt rsa_keygen_bits:4096
+    echo "Converting to RSA..."
+    openssl rsa -in gedcom-support.pem -out gedcom-support.pem
+    echo "Generating certificate chain..."
+    openssl req -key gedcom-support.pem -new -x509 -days 36500 -out gedcom-support.crt

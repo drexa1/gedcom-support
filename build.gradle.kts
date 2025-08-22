@@ -1,5 +1,8 @@
+import org.jetbrains.changelog.Changelog
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.tasks.PatchPluginXmlTask
+import org.jetbrains.intellij.platform.gradle.tasks.PublishPluginTask
+import org.jetbrains.intellij.platform.gradle.tasks.SignPluginTask
 
 group = "org.drexa1"
 version = project.findProperty("version") ?: "1.0.0"
@@ -50,6 +53,9 @@ dependencies {
 
 tasks.withType<PatchPluginXmlTask> {
     version = project.version.toString()
+    changeNotes.set(provider {
+        changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML)
+    })
 }
 
 changelog {
@@ -79,6 +85,13 @@ tasks {
     }
 }
 
+tasks.named<SignPluginTask>("signPlugin") {
+    keyStore.set(file("certs/plugin.jks"))
+    password.set(provider { System.getenv("PLUGIN_SIGN_PASSWORD") })
+}
 
-
-
+tasks.named<PublishPluginTask>("publishPlugin") {
+    token.set(System.getenv("PUBLISH_TOKEN"))
+    channels.set(listOf("default"))
+    dependsOn("signPlugin")
+}

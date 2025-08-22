@@ -13,7 +13,6 @@ class TestGedcomLexer {
         val resource = object {}.javaClass.classLoader.getResource("sample.ged")
             ?: throw IllegalArgumentException("sample.ged not found")
         val gedcomText = File(resource.toURI()).readText()
-        // val lexer = FlexAdapter(FlexGedcomLexer(null))
         val lexer = GedcomLexer()
         lexer.start(gedcomText)
         // GIVEN

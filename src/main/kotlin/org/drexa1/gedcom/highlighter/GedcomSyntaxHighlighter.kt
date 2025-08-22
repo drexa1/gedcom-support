@@ -13,23 +13,22 @@ class GedcomSyntaxHighlighter : SyntaxHighlighterBase() {
     enum class Pointer {
         G, // Generic pointer (ie: UUID)
         I, // INDI ID
-        F // FAM ID
+        F  // FAM ID
     }
 
     object GedcomTextAttributes {
         val LEVEL: TextAttributesKey           = TextAttributesKey.createTextAttributesKey("LEVEL", DefaultLanguageHighlighterColors.KEYWORD)
-        val AT: TextAttributesKey              = TextAttributesKey.createTextAttributesKey("AT", DefaultLanguageHighlighterColors.KEYWORD)
-        val POINTER: TextAttributesKey         = TextAttributesKey.createTextAttributesKey("POINTER", DefaultLanguageHighlighterColors.KEYWORD)
-        val INDI_POINTER: TextAttributesKey    = TextAttributesKey.createTextAttributesKey("INDI_POINTER", DefaultLanguageHighlighterColors.KEYWORD)
-        val FAM_POINTER: TextAttributesKey     = TextAttributesKey.createTextAttributesKey("FAM_POINTER", DefaultLanguageHighlighterColors.KEYWORD)
+        val AT: TextAttributesKey              = TextAttributesKey.createTextAttributesKey("AT", DefaultLanguageHighlighterColors.MARKUP_TAG)
+        val POINTER: TextAttributesKey         = TextAttributesKey.createTextAttributesKey("POINTER", DefaultLanguageHighlighterColors.MARKUP_ENTITY)
+        val INDI_POINTER: TextAttributesKey    = TextAttributesKey.createTextAttributesKey("INDI_POINTER", DefaultLanguageHighlighterColors.MARKUP_ENTITY)
+        val FAM_POINTER: TextAttributesKey     = TextAttributesKey.createTextAttributesKey("FAM_POINTER", DefaultLanguageHighlighterColors.MARKUP_ENTITY)
         val TAG: TextAttributesKey             = TextAttributesKey.createTextAttributesKey("TAG", DefaultLanguageHighlighterColors.KEYWORD)
         val VALUE: TextAttributesKey           = TextAttributesKey.createTextAttributesKey("VALUE", DefaultLanguageHighlighterColors.STRING)
         val BAD_CHARACTER: TextAttributesKey   = HighlighterColors.BAD_CHARACTER
     }
 
-    /* override fun getHighlightingLexer(): Lexer = FlexAdapter(FlexGedcomLexer(null)) */
     @kotlin.concurrent.atomics.ExperimentalAtomicApi
-    override fun getHighlightingLexer(): Lexer = GedcomLexer()
+    override fun getHighlightingLexer(): Lexer = GedcomLexer()  // Try that ChatGPT or Flex or regex 😁
 
     override fun getTokenHighlights(tokenType: IElementType): Array<TextAttributesKey> = when (tokenType) {
         GedcomTokens.LEVEL -> arrayOf(GedcomTextAttributes.LEVEL)

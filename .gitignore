@@ -5,4 +5,6 @@
 .intellijPlatform
 .vscode/
 build/
+certs/**.crt
+certs/**.pem
 /workspace.xml
