@@ -1,7 +1,7 @@
 package org.drexa1.gedcom.highlighter;
 
 import com.intellij.psi.tree.IElementType;
-import org.drexa1.gedcom.highlighter.GedcomTokens;
+import org.drexa1.gedcom.GedcomTokens;
 
 %%
 %public

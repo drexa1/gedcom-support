@@ -1,11 +1,10 @@
 package org.drexa1.gedcom
 
-import GedcomLexer
-import org.drexa1.gedcom.highlighter.GedcomTokens
+import org.drexa1.gedcom.highlighter.GedcomLexer
 import java.io.File
 import kotlin.test.Test
 
-@Suppress("MISSING_DEPENDENCY_SUPERCLASS_WARNING")
+@kotlin.concurrent.atomics.ExperimentalAtomicApi
 class TestGedcomLexer {
 
     @Test
@@ -20,14 +19,20 @@ class TestGedcomLexer {
         // GIVEN
         while (true) {
             val tokenType = lexer.tokenType ?: break
-            val tokenText = lexer.bufferSequence.subSequence(lexer.tokenStart, lexer.tokenEnd).toString().trim()
-            println("Token: $tokenType -> '$tokenText'")
+            val tokenText = lexer.bufferSequence.subSequence(lexer.tokenStart, lexer.tokenEnd).toString()
+            println("Token '$tokenText' -> $tokenType")
             // THEN
             when (tokenType) {
-                GedcomTokens.LEVEL -> assert(tokenText.toIntOrNull() != null) { "LEVEL token is not numeric: $tokenText" }
-                GedcomTokens.VALUE -> assert(tokenText.isNotEmpty()) { "VALUE token is empty" }
-                GedcomTokens.TAG -> assert(tokenText.isNotEmpty()) { "TAG token invalid: $tokenText" }
-                GedcomTokens.BAD_CHARACTER -> assert(tokenText.length == 1) { "BAD_CHARACTER token invalid length: $tokenText" }
+                GedcomTokens.LEVEL -> assert(tokenText.toIntOrNull() != null)
+                GedcomTokens.AT -> assert(tokenText == "@")
+                GedcomTokens.POINTER -> assert(tokenText.isNotEmpty())
+                GedcomTokens.INDI_POINTER -> assert(tokenText.startsWith('I'))
+                GedcomTokens.FAM_POINTER -> assert(tokenText.startsWith('F'))
+                GedcomTokens.TAG -> assert(tokenText.isNotEmpty())
+                GedcomTokens.VALUE -> assert(tokenText.isNotEmpty())
+                GedcomTokens.WHITESPACE -> assert(tokenText.single().isWhitespace())
+                GedcomTokens.NEW_LINE_INDENT -> assert(tokenText.single().code == 10)
+                GedcomTokens.BAD_CHARACTER -> assert(tokenText.length == 1)
             }
             lexer.advance()
         }
