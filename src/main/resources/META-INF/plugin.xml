@@ -1,8 +1,8 @@
 <idea-plugin>
     <id>gedcom-support</id>
-    <name>GEDCOM Syntax Support</name>
+    <name>GEDCOM Syntax Support for IDEA</name>
     <version>${version}</version>
-    <vendor email="drexa1@hotmail.com">Diego Ruiz</vendor>
+    <vendor email="drexa1@hotmail.com">Diego Ruiz Barbero</vendor>
     <description>
         This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.
     </description>

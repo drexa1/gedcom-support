@@ -1,8 +1,6 @@
-import org.jetbrains.changelog.Changelog
+import org.jetbrains.changelog.Changelog.OutputType
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.tasks.PatchPluginXmlTask
-import org.jetbrains.intellij.platform.gradle.tasks.PublishPluginTask
-import org.jetbrains.intellij.platform.gradle.tasks.SignPluginTask
 
 group = "org.drexa1"
 version = project.findProperty("version") ?: "1.0.0"
@@ -51,11 +49,32 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
+intellijPlatform {
+    pluginConfiguration {
+        id.set(rootProject.name)
+        name.set("GEDCOM Syntax Support")
+        version = project.version as String
+        ideaVersion {
+            sinceBuild = "2025.2"
+            untilBuild = provider { null }
+        }
+        changeNotes.set(provider {
+            changelog.renderItem(changelog.get(project.version as String), OutputType.MARKDOWN)
+        })
+    }
+    signing {
+        password = System.getenv("PLUGIN_SIGN_PASSWORD")
+        privateKeyFile = file("certs/gedcom-support.pem")
+        certificateChainFile = file("certs/gedcom-support.crt")
+    }
+    publishing {
+        token.set(System.getenv("PUBLISH_TOKEN"))
+        channels.set(listOf(System.getenv("PUBLISH_CHANNELS")))
+    }
+}
+
 tasks.withType<PatchPluginXmlTask> {
     version = project.version.toString()
-    changeNotes.set(provider {
-        changelog.renderItem(changelog.getLatest(), Changelog.OutputType.HTML)
-    })
 }
 
 changelog {
@@ -83,15 +102,4 @@ tasks {
     processTestResources {
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
-}
-
-tasks.named<SignPluginTask>("signPlugin") {
-    keyStore.set(file("certs/plugin.jks"))
-    password.set(provider { System.getenv("PLUGIN_SIGN_PASSWORD") })
-}
-
-tasks.named<PublishPluginTask>("publishPlugin") {
-    token.set(System.getenv("PUBLISH_TOKEN"))
-    channels.set(listOf("default"))
-    dependsOn("signPlugin")
 }
