@@ -25,12 +25,14 @@ jobs:
         run: echo "GRADLE_USER_HOME=/tmp/gradle" >> $GITHUB_ENV
       - name: Build IntelliJ plugin
         run: |
-          gradle clean buildPlugin -x buildSearchableOptions
+          gradle clean signPlugin -x buildSearchableOptions
       - name: Upload plugin zip
         uses: actions/upload-artifact@v4
+        env:
+          PLUGIN_SIGN_PASSWORD: ${{ secrets.PLUGIN_SIGN_PASSWORD }}
         with:
           name: plugin-distribution
-          path: build/distributions/*.zip
+          path: build/distributions/*-signed.zip
           compression-level: 0
       - name: Read version from gradle.properties
         id: props
