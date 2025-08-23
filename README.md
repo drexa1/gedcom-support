@@ -1,9 +1,8 @@
 # GEDCOM Syntax Support for IntelliJ IDEA
 
-[![CI](https://github.com/drexa1/gedcom-support/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/gedcom-support/actions)
+[![CI](https://github.com/drexa1/gedcom-support/actions/workflows/ci.yml/badge.svg)](https://github.com/drexa1/gedcom-support/actions)
+[![License](https://img.shields.io/github/license/drexa1/gedcom-support.svg)](LICENSE)
 [![Version](https://img.shields.io/jetbrains/plugin/v/12345.svg)](https://plugins.jetbrains.com/plugin/12345-gedcom-support)
-[![License](https://img.shields.io/github/license/OWNER/gedcom-support.svg)](LICENSE)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/12345.svg)](https://plugins.jetbrains.com/plugin/12345-gedcom-support)
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 ---
 
