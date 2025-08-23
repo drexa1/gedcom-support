@@ -5,10 +5,8 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/12345.svg)](https://plugins.jetbrains.com/plugin/12345-gedcom-support)
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 
-[go](http://stackoverflow.com){:target="_blank"}
-
 <p align="center">
-  If you find it useful, you can<br>
+  <span>If you find it useful, you can</span><br>
   <a href="https://buymeacoffee.com/yourusername" target="_blank">
     <img src="https://buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me a Coffee" style="height:40px;">
   </a><br>
