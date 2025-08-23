@@ -6,7 +6,7 @@
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 ---
 
-<table align="center" border="none">
+<table align="center" border="0">
     <tr align="center">
         <td>
             If you find it useful, you can<br><br>
