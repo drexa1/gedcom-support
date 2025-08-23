@@ -6,8 +6,8 @@
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 
 <p align="center">
-  <span size="20">If you find it useful, you can</span><br>
-  <a href="https://buymeacoffee.com/yourusername" target="_blank">
+  <span>If you find it useful, you can</span><br>
+  <a href="https://buymeacoffee.com/drexa1" target="_blank">
     <img src="https://buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me a Coffee" style="height:40px;">
   </a><br>
   🤗
