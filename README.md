@@ -5,6 +5,8 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/12345.svg)](https://plugins.jetbrains.com/plugin/12345-gedcom-support)
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 
+[go](http://stackoverflow.com){:target="_blank"}
+
 <p align="center">
   If you find it useful, you can<br>
   <a href="https://buymeacoffee.com/yourusername" target="_blank">
