@@ -1,6 +1,7 @@
 import org.jetbrains.changelog.Changelog.OutputType
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.tasks.PatchPluginXmlTask
+import org.jetbrains.intellij.platform.gradle.tasks.SignPluginTask
 
 group = "org.drexa1"
 version = project.findProperty("version") ?: "1.0.0"
@@ -82,6 +83,11 @@ changelog {
     version.set(projectVersion)
     header.set("[$projectVersion] - ${org.jetbrains.changelog.date()}")
     groups.set(listOf("Added", "Changed", "Removed", "Fixed"))
+}
+
+tasks.named<SignPluginTask>("signPlugin") {
+    // Override the default `-signed` suffix
+    signedArchiveFile.set(file("distributions/${project.name}-${project.version}.zip"))
 }
 
 tasks {

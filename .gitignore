@@ -4,7 +4,7 @@
 .idea/
 .intellijPlatform
 .vscode/
-build/
+build/**.*
 certs/**.crt
 certs/**.pem
 /workspace.xml
