@@ -4,7 +4,6 @@
 [![License](https://img.shields.io/github/license/drexa1/gedcom-support.svg)](LICENSE)
 [![Version](https://img.shields.io/jetbrains/plugin/v/12345.svg)](https://plugins.jetbrains.com/plugin/12345-gedcom-support)
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
----
 
 <p align="center">
   If you find it useful, you can<br>
@@ -17,11 +16,12 @@
 ## 📄 Overview
 
 It includes so far:  
+
 • **File type recognition** (`.ged` files)  
 • **Syntax highlighting** for GEDCOM structures  
 • **IDE integration** for a smoother genealogy research workflow
 
-![GEDCOM Support highlighting](docs/img/screenshot.png =400x)
+<img src="docs/img/screenshot.png" alt="GEDCOM Support highlighting" width="400">
 
 Here are some toy (but realistic) examples of GEDCOM files in case you need one  
 
