@@ -3,11 +3,10 @@
     <name>GEDCOM Syntax Support for IDEA</name>
     <version>${version}</version>
     <vendor email="drexa1@hotmail.com">Diego Ruiz Barbero</vendor>
-    <description>
-        <![CDATA[
-            <p>This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.</p>
-        ]]>
-    </description>
+    <idea-version since-build="193"/>
+    <description><![CDATA[
+        <p>This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.</p>
+    ]]></description>
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="GEDCOM File" language="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType" extensions="ged"/>
