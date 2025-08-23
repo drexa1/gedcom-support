@@ -4,34 +4,49 @@
         <title></title>
         <style>
             :root {
-                --meta-color: purple;
+                --meta-color: orchid;
                 --id-color: crimson;
                 --indi-color: orange;
                 --fam-color: dodgerblue;
             }
             body {
-                /* background: #1E1E1E; */
+                 /*background: #1E1E1E;*/
             }
             p {
                 margin: 0;
             }
-            .meta-level, .meta-tag {
+            .meta-level {
                 color: var(--meta-color);
             }
-            .indi-id {
-                color: var(--id-color);
+            .meta-tag {
+                color: var(--meta-color);
+                font-weight: bold;
             }
-            .indi-level, .indi-tag {
+            .indi-id {
+                color: var(--indi-color);
+                font-weight: bold;
+            }
+            .indi-level {
                 color: var(--indi-color);
             }
-            .fam-id {
-                color: var(--id-color);
+            .indi-tag {
+                color: var(--indi-color);
+                font-weight: bold;
             }
-            .fam-level, .fam-tag {
+            .fam-id {
                 color: var(--fam-color);
+                font-weight: bold;
+            }
+            .fam-level {
+                color: var(--fam-color);
+            }
+            .fam-tag {
+                color: var(--fam-color);
+                font-weight: bold;
             }
             .tag-value {
                 color: limegreen;
+                /*font-style: italic;*/
             }
         </style>
     </head>
@@ -67,7 +82,7 @@
         <p><span class="indi-level">2</span>&nbsp;<span class="indi-tag">PLAC</span>&nbsp;<span class="tag-value">Madrid, España</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">FAMS</span>&nbsp;<span class="fam-id">@</span><span class="fam-id">F1</span><span class="fam-id">@</span></p>
         <br/>
-        <p><span class="fam-level">0</span>&nbsp;<span class="indi-id">@</span><span class="fam-id">F4</span><span class="indi-id">@</span>&nbsp;<span class="fam-tag">FAM</span></p>
+        <p><span class="fam-level">0</span>&nbsp;<span class="fam-id">@</span><span class="fam-id">F4</span><span class="fam-id">@</span>&nbsp;<span class="fam-tag">FAM</span></p>
         <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">HUSB</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I13</span><span class="indi-id">@</span></p>
         <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">WIFE</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I3</span><span class="indi-id">@</span></p>
         <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">CHIL</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I14</span><span  class="indi-id">@</span></p>
