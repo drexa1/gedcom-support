@@ -21,7 +21,7 @@ It includes so far:
 • **Syntax highlighting** for GEDCOM structures  
 • **IDE integration** for a smoother genealogy research workflow
 
-<img src="docs/img/screenshot.png" alt="GEDCOM Support highlighting" width="400">
+<img src="docs/img/screenshot.png" alt="GEDCOM Support highlighting" width="800">
 
 Here are some toy (but realistic) examples of GEDCOM files in case you need one  
 
