@@ -56,7 +56,7 @@ intellijPlatform {
         name.set("GEDCOM Syntax Support")
         version = project.version as String
         ideaVersion {
-            sinceBuild = "2025.2"
+            sinceBuild = provider { null }
             untilBuild = provider { null }
         }
         changeNotes.set(provider {
