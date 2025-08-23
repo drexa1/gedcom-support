@@ -6,23 +6,28 @@
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 ---
 
+<div style="text-align: center;">
+    If you find it useful, you can<br>
+    <a href="https://buymeacoffee.com/yourusername" target="_blank">
+        <img src="https://buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me a Coffee" style="height: 40px;">
+    </a><br>
+    🤗
+</div>
+
 ## 📄 Overview
 
-**GEDCOM Support** is an IntelliJ IDEA plugin that provides full support for working with genealogical data files in the [GEDCOM](https://en.wikipedia.org/wiki/GEDCOM) format.
-
-It includes:
-
-- **File type recognition** (`.ged` files)
-- **Syntax highlighting** for GEDCOM structures
-- **IDE integration** for a smoother genealogy research workflow
+It includes so far:  
+• **File type recognition** (`.ged` files)  
+• **Syntax highlighting** for GEDCOM structures  
+• **IDE integration** for a smoother genealogy research workflow
 
 ![GEDCOM Support highlighting](docs/img/screenshot.png)
 
+Here are some toy (but realistic) examples of GEDCOM files in case you need one  
 
-Here are some toy (but realistic) examples of GEDCOM files in case you need one
-- [John F. Kennedy](docs/gedcom/kennedy.ged), 35th president of the US.
-- [Frédéric François Chopin](docs/gedcom/chopin.ged), Polish composer and virtuoso pianist.
-- [Julio José Iglesias](docs/gedcom/iglesias.ged), Spanish successful singer and top record seller.
+• [John F. Kennedy](docs/gedcom/kennedy.ged), 35th president of the US.  
+• [Frédéric François Chopin](docs/gedcom/chopin.ged), Polish composer and virtuoso pianist.  
+• [Julio José Iglesias](docs/gedcom/iglesias.ged), Spanish successful singer and top record seller.  
 
 ---
 
