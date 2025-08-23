@@ -6,8 +6,8 @@
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 ---
 
-<table style="margin-left:auto; margin-right:auto; text-align:center;">
-    <tr>
+<table style="text-align: center;">
+    <tr style="text-align: center;">
         <td>
             If you find it useful, you can<br>
             <a href="https://buymeacoffee.com/yourusername" target="_blank">
