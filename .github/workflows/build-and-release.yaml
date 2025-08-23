@@ -32,7 +32,7 @@ jobs:
           PLUGIN_SIGN_PASSWORD: ${{ secrets.PLUGIN_SIGN_PASSWORD }}
         with:
           name: plugin-distribution
-          path: build/distributions/*-signed.zip
+          path: build/distributions/*.zip
           compression-level: 0
       - name: Read version from gradle.properties
         id: props
