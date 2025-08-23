@@ -4,12 +4,14 @@
         <title></title>
         <style>
             :root {
+                --at-color: gray;
                 --meta-color: orchid;
                 --id-color: crimson;
                 --indi-color: orange;
                 --fam-color: dodgerblue;
             }
             body {
+                background: #FAFAFA;
                  /*background: #1E1E1E;*/
             }
             p {
@@ -17,6 +19,9 @@
             }
             .meta-level {
                 color: var(--meta-color);
+            }
+            .at-id {
+                color: var(--at-color);
             }
             .meta-tag {
                 color: var(--meta-color);
@@ -59,7 +64,7 @@
         <p><span class="meta-level">1</span>&nbsp;<span class="meta-tag">LANG</span>&nbsp;<span class="tag-value">Spanish</span></p>
         <p><span class="meta-level">1</span>&nbsp;<span class="meta-tag">FILE</span>&nbsp;<span class="tag-value">iglesias.ged</span></p>
         <br/>
-        <p><span class="indi-level">0</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I0</span><span class="indi-id">@</span>&nbsp;<span class="indi-tag">INDI</span></p>
+        <p><span class="indi-level">0</span>&nbsp;<span class="at-id">@</span><span class="indi-id">I0</span><span class="at-id">@</span>&nbsp;<span class="indi-tag">INDI</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">NAME</span>&nbsp;<span class="tag-value">Julio /IGLESIAS/ Puga</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">SEX</span>&nbsp;<span class="tag-value">M</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">BIRT</span></p>
@@ -68,9 +73,9 @@
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">DEAT</span></p>
         <p><span class="indi-level">2</span>&nbsp;<span class="indi-tag">DATE</span>&nbsp;<span class="tag-value">19 DEC 2005</span></p>
         <p><span class="indi-level">2</span>&nbsp;<span class="indi-tag">PLAC</span>&nbsp;<span class="tag-value">Madrid, España</span></p>
-        <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">FAMS</span>&nbsp;<span class="fam-id">@</span><span class="fam-id">F1</span><span class="fam-id">@</span></p>
+        <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">FAMS</span>&nbsp;<span class="at-id">@</span><span class="fam-id">F1</span><span class="at-id">@</span></p>
         <br/>
-        <p><span class="indi-level">0</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I1</span><span class="indi-id">@</span>&nbsp;<span class="indi-tag">INDI</span></p>
+        <p><span class="indi-level">0</span>&nbsp;<span class="at-id">@</span><span class="indi-id">I1</span><span class="at-id">@</span>&nbsp;<span class="indi-tag">INDI</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">NAME</span>&nbsp;<span class="tag-value">Mar&iacute;a del Rosario /DE LA CUEVA Y PERIGNAT/</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">SEX</span>&nbsp;<span class="tag-value">F</span></p>
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">BIRT</span></p>
@@ -79,12 +84,12 @@
         <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">DEAT</span></p>
         <p><span class="indi-level">2</span>&nbsp;<span class="indi-tag">DATE</span>&nbsp;<span class="tag-value">2002</span></p>
         <p><span class="indi-level">2</span>&nbsp;<span class="indi-tag">PLAC</span>&nbsp;<span class="tag-value">Madrid, España</span></p>
-        <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">FAMS</span>&nbsp;<span class="fam-id">@</span><span class="fam-id">F1</span><span class="fam-id">@</span></p>
+        <p><span class="indi-level">1</span>&nbsp;<span class="indi-tag">FAMS</span>&nbsp;<span class="at-id">@</span><span class="fam-id">F1</span><span class="at-id">@</span></p>
         <br/>
-        <p><span class="fam-level">0</span>&nbsp;<span class="fam-id">@</span><span class="fam-id">F4</span><span class="fam-id">@</span>&nbsp;<span class="fam-tag">FAM</span></p>
-        <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">HUSB</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I13</span><span class="indi-id">@</span></p>
-        <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">WIFE</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I3</span><span class="indi-id">@</span></p>
-        <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">CHIL</span>&nbsp;<span class="indi-id">@</span><span class="indi-id">I14</span><span  class="indi-id">@</span></p>
+        <p><span class="fam-level">0</span>&nbsp;<span class="at-id">@</span><span class="fam-id">F4</span><span class="at-id">@</span>&nbsp;<span class="fam-tag">FAM</span></p>
+        <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">HUSB</span>&nbsp;<span class="at-id">@</span><span class="indi-id">I13</span><span class="at-id">@</span></p>
+        <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">WIFE</span>&nbsp;<span class="at-id">@</span><span class="indi-id">I3</span><span class="at-id">@</span></p>
+        <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">CHIL</span>&nbsp;<span class="at-id">@</span><span class="indi-id">I14</span><span  class="at-id">@</span></p>
         <p><span class="fam-level">1</span>&nbsp;<span class="fam-tag">MARR</span></p>
         <p><span class="fam-level">2</span>&nbsp;<span class="fam-tag">DATE</span>&nbsp;<span class="tag-value">1980</span></p>
         <p><span class="fam-level">2</span>&nbsp;<span class="fam-tag">PLAC</span>&nbsp;<span class="tag-value">Madrid, España</span></p>
