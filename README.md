@@ -14,18 +14,6 @@
   🤗
 </p>
 
-<table align="center">
-    <tr align="center">
-        <td>
-            If you find it useful, you can<br>
-            <a href="https://buymeacoffee.com/yourusername" target="_blank">
-                <img src="https://buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me a Coffee" style="height: 40px;">
-            </a><br>
-            🤗
-        </td>
-    </tr>
-</table>
-
 ## 📄 Overview
 
 It includes so far:  
@@ -33,7 +21,7 @@ It includes so far:
 • **Syntax highlighting** for GEDCOM structures  
 • **IDE integration** for a smoother genealogy research workflow
 
-![GEDCOM Support highlighting](docs/img/screenshot.png)
+![GEDCOM Support highlighting](docs/img/screenshot.png =400x)
 
 Here are some toy (but realistic) examples of GEDCOM files in case you need one  
 
