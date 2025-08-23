@@ -17,7 +17,7 @@
 
 It includes so far:  
 
-• **File type recognition** (`.ged` files)  
+• **File type recognition** for `.ged` files  
 • **Syntax highlighting** for GEDCOM structures  
 • **IDE integration** for a smoother genealogy research workflow
 

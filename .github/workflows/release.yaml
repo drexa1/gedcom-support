@@ -6,6 +6,7 @@ on:
     paths-ignore:
       - ".github/**"
       - ".docs/**"
+      - "README.md"
   workflow_dispatch:
 
 permissions:
