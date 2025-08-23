@@ -55,6 +55,10 @@ intellijPlatform {
         id.set(rootProject.name)
         name.set("GEDCOM Syntax Support")
         version = project.version as String
+        ideaVersion {
+            sinceBuild.set("193")
+            untilBuild.set("999.*")
+        }
         changeNotes.set(provider {
             changelog.renderItem(changelog.get(project.version as String), OutputType.HTML)
         })
