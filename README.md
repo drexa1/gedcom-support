@@ -6,9 +6,9 @@
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 ---
 
-<table align="center" border="0" cellspacing="0" cellpadding="0">
+<table align="center">
     <tr align="center">
-        <td>
+        <td style="border: none !important">
             If you find it useful, you can<br>
             <a href="https://buymeacoffee.com/yourusername" target="_blank">
                 <img src="https://buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me a Coffee" style="height: 40px;">
