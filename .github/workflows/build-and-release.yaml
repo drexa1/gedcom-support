@@ -1,4 +1,4 @@
-name: Build Idea Plugin
+name: Build IDEA plugin
 
 on:
   push:
