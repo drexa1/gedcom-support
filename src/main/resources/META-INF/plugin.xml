@@ -4,7 +4,9 @@
     <version>${version}</version>
     <vendor email="drexa1@hotmail.com">Diego Ruiz Barbero</vendor>
     <description>
-        This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.
+        <![CDATA[
+            <p>This plugin provides full support for GEDCOM genealogy files, including syntax highlighting, file type recognition, and IDE integration.</p>
+        ]]>
     </description>
     <depends>com.intellij.modules.lang</depends>
     <extensions defaultExtensionNs="com.intellij">

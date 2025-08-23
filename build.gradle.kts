@@ -60,7 +60,7 @@ intellijPlatform {
             untilBuild = provider { null }
         }
         changeNotes.set(provider {
-            changelog.renderItem(changelog.get(project.version as String), OutputType.MARKDOWN)
+            changelog.renderItem(changelog.get(project.version as String), OutputType.HTML)
         })
     }
     signing {
