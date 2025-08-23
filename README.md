@@ -5,7 +5,12 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/28266.svg)](https://plugins.jetbrains.com/plugin/28266-gedcom-syntax-support)
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 
-<p align="center">
+<script src="https://plugins.jetbrains.com/assets/scripts/mp-widget.js"></script>
+<script>
+  // Please, replace #yourelement with a real element id on your webpage
+  MarketplaceWidget.setupMarketplaceWidget('card', 28266, "#yourelement");
+</script>
+<p align="left">
   <span>If you find it useful, you can</span><br>
   <a href="https://buymeacoffee.com/drexa1" target="_blank">
     <img src="https://buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me a Coffee" style="height:40px;">
