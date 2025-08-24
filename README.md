@@ -5,6 +5,7 @@
 [![Version](https://img.shields.io/jetbrains/plugin/v/28266.svg)](https://plugins.jetbrains.com/plugin/28266-gedcom-syntax-support)
 ![Made with Kotlin](https://img.shields.io/badge/made%20with-Kotlin-1f425f.svg)
 
+<!--suppress ALL -->
 <p align="left">
   <span>If you find it useful, you can</span><br>
   <a href="https://buymeacoffee.com/drexa1" target="_blank">
@@ -21,7 +22,7 @@ It includes so far:
 • **Syntax highlighting** for GEDCOM structures  
 • **IDE integration** for a smoother genealogy research workflow
 
-<img src="docs/img/screenshot.png" alt="GEDCOM Support highlighting" width="800">
+<img src="docs/img/screenshot-dark.png" alt="GEDCOM Support highlighting" width="800">
 
 Here are some toy (but realistic) examples of GEDCOM files in case you need one  
 

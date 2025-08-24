@@ -1,12 +1,12 @@
 package org.drexa1.gedcom.highlighter
 
+import GedcomTags
 import com.intellij.lexer.LexerBase
 import com.intellij.psi.tree.IElementType
-import org.drexa1.gedcom.GedcomTags
-import org.drexa1.gedcom.GedcomTokens
 import java.lang.Character.isWhitespace
 import kotlin.concurrent.atomics.AtomicInt
 import org.drexa1.gedcom.highlighter.GedcomSyntaxHighlighter.Pointer
+import org.drexa1.gedcom.highlighter.GedcomSyntaxHighlighter.SectionType
 
 data class GedcomLTV(var level: Int?, var id: String?, var tag: String?, var value: String?)
 
@@ -23,7 +23,8 @@ class GedcomLexer : LexerBase() {
     private val tokenEnd = AtomicInt(0)
     private val tokenLength = AtomicInt(0)
     private var tokenType: IElementType? = null
-    private var currentLTV: GedcomLTV? = GedcomLTV(null,null,null, null)
+    private var currentSectionType = SectionType.META
+    private val currentLTV: GedcomLTV = GedcomLTV(null,null,null, null)
 
     override fun getState(): Int = 0
     override fun getBufferSequence(): CharSequence = buffer
@@ -50,28 +51,42 @@ class GedcomLexer : LexerBase() {
         // Clear previous token length
         tokenLength.store(0)
         val ch = buffer[startOffset.load()]
+        // Match pattern
         tokenType = when {
             ch == '\n' -> {
                 // Advance line
-                currentLTV?.apply { level = null; tag = null; value = null }
+                currentLTV.apply { level = null; tag = null; value = null }
                 currentLine.addAndFetch(1)
                 GedcomTokens.NEW_LINE_INDENT
             }
-            isWhitespace(ch.code) -> GedcomTokens.WHITESPACE
-            isLevel() -> GedcomTokens.LEVEL
-            ch == '@' -> GedcomTokens.AT
-            isPointer()?.equals(Pointer.G) ?: false -> GedcomTokens.POINTER
-            isPointer()?.equals(Pointer.I) ?: false -> GedcomTokens.INDI_POINTER
-            isPointer()?.equals(Pointer.F) ?: false -> GedcomTokens.FAM_POINTER
-            isTag() -> GedcomTokens.TAG
-            isValue() -> GedcomTokens.VALUE
-            else -> GedcomTokens.BAD_CHARACTER
+            isWhitespace(ch.code)                   -> GedcomTokens.WHITESPACE
+            currentSectionType == SectionType.META && isLevel() -> GedcomTokens.LEVEL_META
+            currentSectionType == SectionType.INDI && isLevel() -> GedcomTokens.LEVEL_INDI
+            currentSectionType == SectionType.FAM  && isLevel() -> GedcomTokens.LEVEL_FAM
+            ch == '@'                                           -> GedcomTokens.AT
+            isPointer()?.equals(Pointer.GEN) ?: false           -> GedcomTokens.POINTER
+            isPointer()?.equals(Pointer.INDI) ?: false          -> GedcomTokens.INDI_POINTER
+            isPointer()?.equals(Pointer.FAM) ?: false           -> GedcomTokens.FAM_POINTER
+            currentSectionType == SectionType.META && isTag()   -> GedcomTokens.TAG_META
+            currentSectionType == SectionType.INDI && isTag()   -> GedcomTokens.TAG_INDI
+            currentSectionType == SectionType.FAM  && isTag()   -> GedcomTokens.TAG_FAM
+            isValue()                                           -> GedcomTokens.VALUE
+            else                                                -> GedcomTokens.BAD_CHARACTER
         }
-        // Bump offset
         when (tokenType) {
-            GedcomTokens.LEVEL, GedcomTokens.INDI_POINTER, GedcomTokens.FAM_POINTER, GedcomTokens.TAG, GedcomTokens.VALUE ->
+            // Bump offset for varying length tokens
+            GedcomTokens.LEVEL_META,
+            GedcomTokens.LEVEL_INDI,
+            GedcomTokens.LEVEL_FAM,
+            GedcomTokens.INDI_POINTER,
+            GedcomTokens.FAM_POINTER,
+            GedcomTokens.TAG_META,
+            GedcomTokens.TAG_INDI,
+            GedcomTokens.TAG_FAM,
+            GedcomTokens.VALUE ->
                 startOffset.addAndFetch(tokenLength.load())
             else -> {
+                // Bump offset for 1 char
                 startOffset.addAndFetch(1)
                 tokenLength.addAndFetch(1)
             }
@@ -84,11 +99,11 @@ class GedcomLexer : LexerBase() {
         try {
             assert(getTokenEnd() > getTokenStart()) { "tokenStart < tokenEnd" }
             assert(tokenLength.load() == tokenSequence.length) { "offset length > token length" }
-            println("token: <<${if (tokenType == GedcomTokens.NEW_LINE_INDENT) "\\n" else tokenSequence}>> - " +
+            /* println("token: <<${if (tokenType == GedcomTokens.NEW_LINE_INDENT) "\\n" else tokenSequence}>> - " +
                     "tokenStart: '${getTokenStart()}', " +
                     "tokenEnd: ${getTokenEnd()} " +
                     "(tokenLength: $tokenLength) -> " +
-                    "tokenType: $tokenType")
+                    "tokenType: $tokenType") */
         } catch(e: Exception) {
             println("ERROR: ${e.message}")
         }
@@ -101,7 +116,9 @@ class GedcomLexer : LexerBase() {
             if(isLevel) {
                 // Save token length for offset bump
                 tokenLength.store(buffer[startOffset.load()].toString().length)
-                currentLTV?.level = buffer[startOffset.load()].digitToInt()
+                currentLTV.level = buffer[startOffset.load()].digitToInt()
+                // On levels 0 verify if a change in section is happening (META -> INDI -> FAM -> META)
+                checkSectionChange()
             }
             return isLevel
         } catch (_: NumberFormatException) {
@@ -109,6 +126,23 @@ class GedcomLexer : LexerBase() {
         }
     }
 
+    fun checkSectionChange() {
+        // On 0 levels check if it follows an INDI or FAM record
+        if (currentLTV.level == 0) {
+            val lineEnd = lineOffsets.getOrNull(currentLine.load() + 1)?.minus(1) ?: endOffset.load()
+            val candidateTag = buffer.subSequence(startOffset.load(), lineEnd).toString().substringAfterLast(' ')
+            currentSectionType = when (candidateTag) {
+                GedcomTags.INDI.name -> SectionType.INDI
+                GedcomTags.FAM.name  -> SectionType.FAM
+                else                 -> SectionType.META
+            }
+        }
+    }
+
+    /**
+     * ID's between @ and @.
+     * Can be the subject for a new INDI/FAM record, or the complement of a tag.
+     */
     fun isPointer(): Pointer? {
         try {
             val lineStart = lineOffsets[currentLine.load()]
@@ -119,18 +153,27 @@ class GedcomLexer : LexerBase() {
                 // Save token length for offset bump
                 tokenLength.store(pointerCandidate.length)
                 // The pointer can be the ID of and INDI/FAM record or an ID argument for FAMS/FAMC/HUSB/WIFE/CHIL
-                currentLTV?.let { ltv -> if (ltv.tag != null) ltv.value = pointerCandidate else ltv.id = pointerCandidate }
+                currentLTV.apply {
+                    val isLastArgument = buffer.subSequence(startOffset.load(), nextLineStart - 1).toString().split(' ').size == 1
+                    if (isLastArgument) value = pointerCandidate else id = pointerCandidate
+                }
                 return when (pointerCandidate.firstOrNull()) {
-                    'I' -> Pointer.I
-                    'F' -> Pointer.F
-                    else -> Pointer.G
+                    'I' -> Pointer.INDI
+                    'F' -> Pointer.FAM
+                    else -> Pointer.GEN
                 }
             } else null
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            println("ERROR: ${e.message}")
             return null
         }
     }
 
+    /**
+     * GEDCOM tags.
+     * Can appear in control sections, INDI sections or FAM sections.
+     * @see GedcomTags
+     */
     fun isTag(): Boolean {
         try {
             val tagCandidate = tokenCandidate()
@@ -138,7 +181,7 @@ class GedcomLexer : LexerBase() {
             return if (enumValues<GedcomTags>().any { it.name == tagCandidate }) {
                 // Save token length for offset bump
                 tokenLength.store(tagCandidate.length)
-                currentLTV?.tag = tagCandidate
+                currentLTV.tag = tagCandidate
                 return true
             } else false
         } catch (_: Exception) {
@@ -146,6 +189,9 @@ class GedcomLexer : LexerBase() {
         }
     }
 
+    /**
+     * Anything following a tag, regardless of the section (META/INDI/FAM).
+     */
     fun isValue(): Boolean {
         try {
             val valueCandidate = tokenCandidate()
@@ -154,10 +200,11 @@ class GedcomLexer : LexerBase() {
             return if (isValue) {
                 // Save token length for offset bump
                 tokenLength.store(valueCandidate.length)
-                currentLTV?.value = valueCandidate
+                currentLTV.value = valueCandidate
                 return true
             } else false
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            println("ERROR: ${e.message}")
             return false
         }
     }
@@ -168,7 +215,7 @@ class GedcomLexer : LexerBase() {
         // Collect chars until next delimiter
         val lineEnd = lineOffsets.getOrNull(currentLine.load() + 1)?.minus(1) ?: endOffset.load()
         // For values, collect whitespaces too and take until the end of the line
-        val nextDelimiter = if (currentLTV?.tag != null) '\n' else ' '
+        val nextDelimiter = if (currentLTV.tag != null) '\n' else ' '
         val remainingLineTokens = buffer.subSequence(startOffset.load(), lineEnd).toString().split(nextDelimiter)
         return remainingLineTokens.first()
     }
