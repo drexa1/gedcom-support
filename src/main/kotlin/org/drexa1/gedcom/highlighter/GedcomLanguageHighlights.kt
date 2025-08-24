@@ -36,7 +36,7 @@ object GedcomLanguageHighlights {
     )
     val POINTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "POINTER",
-        TextAttributes(ID_COLOR, null, null, null, Font.PLAIN)
+        TextAttributes(ID_COLOR, null, null, null, Font.BOLD)
     )
     val INDI_POINTER: TextAttributesKey = TextAttributesKey.createTextAttributesKey(
         "INDI_POINTER",
