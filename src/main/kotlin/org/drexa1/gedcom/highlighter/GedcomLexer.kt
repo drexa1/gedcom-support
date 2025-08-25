@@ -59,7 +59,7 @@ class GedcomLexer : LexerBase() {
                 currentLine.addAndFetch(1)
                 GedcomTokens.NEW_LINE_INDENT
             }
-            isWhitespace(ch.code)                   -> GedcomTokens.WHITESPACE
+            isWhitespace(ch.code)                               -> GedcomTokens.WHITESPACE
             currentSectionType == SectionType.META && isLevel() -> GedcomTokens.LEVEL_META
             currentSectionType == SectionType.INDI && isLevel() -> GedcomTokens.LEVEL_INDI
             currentSectionType == SectionType.FAM  && isLevel() -> GedcomTokens.LEVEL_FAM
