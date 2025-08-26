@@ -6,9 +6,8 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiReferenceBase
 import org.drexa1.gedcom.psi.GedcomPointer
 
-class GedcomPointerReference(element: GedcomPointer, rangeInElement: TextRange?) :
+class GedcomPointerReference(element: GedcomPointer, rangeInElement: TextRange?): PsiReferenceBase<GedcomPointer?>(element, rangeInElement, false) {
 
-    PsiReferenceBase<GedcomPointer?>(element, rangeInElement, false) {
     override fun resolve(): PsiElement? {
         val id: String = element.text.trim()
         val targets: MutableCollection<GedcomPointer> = GedcomUtils.findPointers(element.project, id)
@@ -26,10 +25,5 @@ class GedcomPointerReference(element: GedcomPointer, rangeInElement: TextRange?)
             .distinct()
             .map { `object`: Any? -> LookupElementBuilder.create(`object`!!) }
             .toArray()
-    }
-
-    override fun handleElementRename(newElementName: String): PsiElement {
-        val newPtr = GedcomElementFactory.createPointer(element.project, newElementName) ?: return element
-        return element.replace(newPtr)
     }
 }

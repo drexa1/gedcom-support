@@ -6,20 +6,20 @@ import com.intellij.util.ProcessingContext
 import org.drexa1.gedcom.psi.GedcomPointer
 import com.intellij.psi.*
 
-class GedcomReferenceContributor : PsiReferenceContributor() {
+class GedcomReferenceContributor: PsiReferenceContributor() {
 
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
-        registrar.registerReferenceProvider(PlatformPatterns.psiElement(GedcomPointer::class.java), referenceProvider())
-    }
-
-    fun referenceProvider(): PsiReferenceProvider = object : PsiReferenceProvider() {
-        override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference?> {
-            if (element !is GedcomPointer) return PsiReference.EMPTY_ARRAY
-            val pointer: GedcomPointer = element
-            // If the pointer is level 0 no need to create a reference
-            if (GedcomUtils.isDefinition(pointer)) return PsiReference.EMPTY_ARRAY
-            val range = TextRange(0, element.textLength)
-            return arrayOf(GedcomPointerReference(pointer, range))
-        }
+        registrar.registerReferenceProvider(
+            PlatformPatterns.psiElement(GedcomPointer::class.java),
+            object : PsiReferenceProvider() {
+                override fun getReferencesByElement(element: PsiElement, context: ProcessingContext): Array<PsiReference?> {
+                    if (element !is GedcomPointer) return PsiReference.EMPTY_ARRAY
+                    val pointer: GedcomPointer = element
+                    // If the pointer is itself a top-level definition (level 0) we don't need to create a reference
+                    if (GedcomUtils.isDefinition(pointer)) return PsiReference.EMPTY_ARRAY
+                    val range = TextRange(0, element.textLength)
+                    return arrayOf(GedcomPointerReference(pointer, range))
+                }
+            })
     }
 }

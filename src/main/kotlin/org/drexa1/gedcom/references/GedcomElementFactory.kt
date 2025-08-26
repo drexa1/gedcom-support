@@ -9,8 +9,6 @@ import org.drexa1.gedcom.psi.GedcomPointer
 
 object GedcomElementFactory {
 
-    val GedcomFileTypeInstance: GedcomFileType = GedcomFileType()
-
     /**
      * Create a temporary file that contains the pointer text and parse it to extract a Pointer node.
      * i.e: "@I0@"
@@ -18,8 +16,7 @@ object GedcomElementFactory {
     fun createPointer(project: Project, newPointerText: String): GedcomPointer? {
         // Put it on a minimal line so parser produces a Pointer node
         val fileText = "0 $newPointerText DUMMY\n"
-        val file: PsiFile =
-            PsiFileFactory.getInstance(project).createFileFromText("dummy.ged", GedcomFileTypeInstance, fileText)
+        val file: PsiFile = PsiFileFactory.getInstance(project).createFileFromText("dummy.ged", GedcomFileType(), fileText)
         return PsiTreeUtil.findChildOfType(file, GedcomPointer::class.java)
     }
 }

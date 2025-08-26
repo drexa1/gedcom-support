@@ -11,6 +11,7 @@
         <fileType name="GEDCOM File" language="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomFileType" extensions="ged"/>
         <colorSettingsPage implementation="org.drexa1.gedcom.highlighter.GedcomColorSettingsPage"/>
         <lang.syntaxHighlighterFactory language="GEDCOM" implementationClass="org.drexa1.gedcom.highlighter.GedcomSyntaxHighlighterFactory"/>
+<!--        <lang.parserDefinition language="GEDCOM" implementationClass="org.drexa1.gedcom.GedcomParser"/>-->
         <psi.referenceContributor language="GEDCOM" implementation="org.drexa1.gedcom.references.GedcomReferenceContributor"/>
     </extensions>
 </idea-plugin>

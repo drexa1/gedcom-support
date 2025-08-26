@@ -1,5 +1,6 @@
 import org.jetbrains.changelog.Changelog.OutputType
 import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 import org.jetbrains.intellij.platform.gradle.tasks.PatchPluginXmlTask
 import org.jetbrains.intellij.platform.gradle.tasks.SignPluginTask
 
@@ -44,6 +45,7 @@ dependencies {
         create(platform, platformVersion) {
             useInstaller = true
         }
+        testFramework(TestFrameworkType.Platform)
         pluginVerifier()
         zipSigner()
     }
@@ -71,6 +73,12 @@ intellijPlatform {
         token.set(System.getenv("PUBLISH_TOKEN"))
         channels.set(listOf(System.getenv("PUBLISH_CHANNELS")))
     }
+    pluginVerification {
+        ides {
+            create(platform, platformVersion)
+        }
+    }
+
 }
 
 tasks.withType<PatchPluginXmlTask> {

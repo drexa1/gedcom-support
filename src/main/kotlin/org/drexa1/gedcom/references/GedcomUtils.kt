@@ -1,6 +1,5 @@
 package org.drexa1.gedcom.references
 
-import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.FileTypeIndex

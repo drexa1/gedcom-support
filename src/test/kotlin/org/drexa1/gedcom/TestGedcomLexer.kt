@@ -1,26 +1,24 @@
 package org.drexa1.gedcom
 
+import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import org.drexa1.gedcom.highlighter.GedcomLexer
 import org.drexa1.gedcom.highlighter.GedcomTokens
-import kotlin.test.Test
 
 @kotlin.concurrent.atomics.ExperimentalAtomicApi
-class TestGedcomLexer {
+class TestGedcomLexer: BasePlatformTestCase() {
 
-    @Test
+    override fun getTestDataPath(): String = "src/test/resources"
+
     fun testLexer() {
-        // GIVEN
-        val resource = object {}.javaClass.classLoader.getResource("sample.ged")
-            ?: throw IllegalArgumentException("sample.ged not found")
-        val gedcomText = resource.readText()
+        // GIVEN: a sample file
         val lexer = GedcomLexer()
-        lexer.start(gedcomText)
-        // WHEN
+        lexer.start(myFixture.configureByFile("sample.ged").text)
+        // WHEN: the lexer tokenizes it from start to end
         while (true) {
             val tokenType = lexer.tokenType ?: break
             val tokenText = lexer.bufferSequence.subSequence(lexer.tokenStart, lexer.tokenEnd).toString()
             when (tokenType) {
-                // THEN
+                // THEN: each token type is captured correctly
                 GedcomTokens.LEVEL           -> assert(tokenText.toIntOrNull() != null)
                 GedcomTokens.AT              -> assert(tokenText == "@")
                 GedcomTokens.POINTER         -> assert(tokenText.isNotEmpty())
