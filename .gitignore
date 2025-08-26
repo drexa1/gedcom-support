@@ -1,10 +1,10 @@
 # Default ignored files
 /shelf/
 .gradle
-.idea/
+.idea
 .intellijPlatform
-.vscode/
-build/
+.vscode
+build
 certs/**.crt
 certs/**.pem
 /workspace.xml
