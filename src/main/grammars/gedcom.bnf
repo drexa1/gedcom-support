@@ -1,0 +1,68 @@
+{
+  parserClass="org.drexa1.gedcom.parser.GedcomParser"
+  psiPackage="org.drexa1.gedcom.psi"
+  psiImplPackage="org.drexa1.gedcom.psi.impl"
+  elementTypeHolderClass="org.drexa1.gedcom.psi.GedcomTypes"
+  tokenTypeClass="org.drexa1.gedcom.psi.GedcomTypes"
+  psiClassPrefix="Gedcom"
+}
+
+<gedcom> ::= <line>+ <EOF>
+
+<line> ::= <level> <opt_xref_id>? <tag> <line_value>? <EOL>
+
+<level> ::= <DIGIT>+
+
+<opt_xref_id> ::= <pointer>
+
+<tag> ::= <alphanum>+
+
+<line_value> ::= <line_item>+
+
+<line_item> ::= <pointer>
+              | <escape>
+              | <anychar>
+
+<escape> ::= "@" "#" <escape_text> "@" <non_at>
+
+<non_at> ::= <ALPHA>
+           | <DIGIT>
+           | <otherchar>
+           | "#"
+
+<escape_text> ::= <anychar>+
+
+<pointer> ::= "@" <alphanum> <pointer_string> "@"
+
+<pointer_string> ::= <pointer_char>+
+
+<pointer_char> ::= <ALPHA>
+                 | <DIGIT>
+                 | <otherchar>
+                 | "#"
+
+<alphanum> ::= <ALPHA>
+             | <DIGIT>
+
+<anychar> ::= <ALPHA>
+            | <DIGIT>
+            | <otherchar>
+            | "#"
+            | "@@"
+
+<ALPHA> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
+          | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
+          | "U" | "V" | "W" | "X" | "Y" | "Z"
+          | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j"
+          | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t"
+          | "u" | "v" | "w" | "x" | "y" | "z"
+          | "_"
+
+<DIGIT> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<otherchar> ::= "!" | '"' | "$" | "&" | "'" | "(" | ")" | "*" | "+"
+              | "-" | "," | "." | "/"
+
+<EOL> ::= "\r" | "\n" | "\r\n"
+
+<EOF> ::= /* End of file */

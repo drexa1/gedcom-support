@@ -92,7 +92,14 @@ tasks.named<SignPluginTask>("signPlugin") {
 tasks {
     generateLexer {
         sourceFile.set(file("src/main/grammars/gedcom.flex"))
-        targetOutputDir.set(file("src/main/generated/org/drexa1/gedcom/highlighter"))
+        targetOutputDir.set(file("src/main/generated/org/drexa1/gedcom/highlighter/"))
+        purgeOldFiles.set(true)
+    }
+    generateParser {
+        sourceFile.set(file("src/main/grammars/gedcom.bnf"))
+        targetRootOutputDir.set(file("src/main/generated"))
+        pathToParser.set("org/drexa1/gedcom/parser/GedcomParser.java")
+        pathToPsiRoot.set("org/drexa1/gedcom/psi")
         purgeOldFiles.set(true)
     }
     compileKotlin {

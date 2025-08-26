@@ -1,0 +1,19 @@
+// This is a generated file. Not intended for manual editing.
+package org.drexa1.gedcom.psi;
+
+import java.util.List;
+import org.jetbrains.annotations.*;
+import com.intellij.psi.PsiElement;
+
+public interface GedcomLineItem extends PsiElement {
+
+  @Nullable
+  GedcomAnychar getAnychar();
+
+  @Nullable
+  GedcomEscape getEscape();
+
+  @Nullable
+  GedcomPointer getPointer();
+
+}
