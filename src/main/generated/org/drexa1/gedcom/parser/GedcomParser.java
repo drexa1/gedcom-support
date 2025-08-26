@@ -36,12 +36,8 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
-  //           | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T"
-  //           | "U" | "V" | "W" | "X" | "Y" | "Z"
-  //           | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j"
-  //           | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t"
-  //           | "u" | "v" | "w" | "x" | "y" | "z"
+  // "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+  //           | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
   //           | "_"
   public static boolean ALPHA(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "ALPHA")) return false;
@@ -145,11 +141,10 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <ALPHA>
-  //              | <DIGIT>
+  // <ALPHA> | <DIGIT>
   public static boolean alphanum(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "alphanum")) return false;
-    if (!nextTokenIs(builder_, "<alphanum>", _ALPHA_, _DIGIT_)) return false;
+    if (!nextTokenIs(builder_, "<alphanum>", ALPHA, DIGIT)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_, level_, _NONE_, ALPHANUM, "<alphanum>");
     result_ = ALPHA(builder_, level_ + 1);
@@ -159,11 +154,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <ALPHA>
-  //             | <DIGIT>
-  //             | <otherchar>
-  //             | "#"
-  //             | "@@"
+  // <ALPHA> | <DIGIT> | <otherchar> | "#" | "@@"
   public static boolean anychar(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "anychar")) return false;
     boolean result_;
@@ -196,7 +187,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <anychar>+
   public static boolean escape_text(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "escape_text")) return false;
-    if (!nextTokenIs(builder_, _ANYCHAR_)) return false;
+    if (!nextTokenIs(builder_, ANYCHAR)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = anychar(builder_, level_ + 1);
@@ -213,7 +204,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <line>+ <EOF>
   static boolean gedcom(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "gedcom")) return false;
-    if (!nextTokenIs(builder_, _LINE_)) return false;
+    if (!nextTokenIs(builder_, LINE)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = gedcom_0(builder_, level_ + 1);
@@ -241,7 +232,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <DIGIT>+
   public static boolean level(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "level")) return false;
-    if (!nextTokenIs(builder_, _DIGIT_)) return false;
+    if (!nextTokenIs(builder_, DIGIT)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = DIGIT(builder_, level_ + 1);
@@ -258,7 +249,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <level> <opt_xref_id>? <tag> <line_value>? <EOL>
   public static boolean line(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "line")) return false;
-    if (!nextTokenIs(builder_, _LEVEL_)) return false;
+    if (!nextTokenIs(builder_, LEVEL)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = level(builder_, level_ + 1);
@@ -285,9 +276,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <pointer>
-  //               | <escape>
-  //               | <anychar>
+  // <pointer> | <escape> | <anychar>
   public static boolean line_item(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "line_item")) return false;
     boolean result_;
@@ -303,7 +292,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <line_item>+
   public static boolean line_value(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "line_value")) return false;
-    if (!nextTokenIs(builder_, _LINE_ITEM_)) return false;
+    if (!nextTokenIs(builder_, LINE_ITEM)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = line_item(builder_, level_ + 1);
@@ -317,10 +306,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <ALPHA>
-  //            | <DIGIT>
-  //            | <otherchar>
-  //            | "#"
+  // <ALPHA> | <DIGIT> | <otherchar> | "#"
   public static boolean non_at(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "non_at")) return false;
     boolean result_;
@@ -337,7 +323,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <pointer>
   public static boolean opt_xref_id(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "opt_xref_id")) return false;
-    if (!nextTokenIs(builder_, _POINTER_)) return false;
+    if (!nextTokenIs(builder_, POINTER)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = pointer(builder_, level_ + 1);
@@ -346,8 +332,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "!" | '"' | "$" | "&" | "'" | "(" | ")" | "*" | "+"
-  //               | "-" | "," | "." | "/"
+  // "!" | '"' | "$" | "&" | "'" | "(" | ")" | "*" | "+" | "-" | "," | "." | "/"
   public static boolean otherchar(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "otherchar")) return false;
     boolean result_;
@@ -384,10 +369,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // <ALPHA>
-  //                  | <DIGIT>
-  //                  | <otherchar>
-  //                  | "#"
+  // <ALPHA> | <DIGIT> | <otherchar> | "#"
   public static boolean pointer_char(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pointer_char")) return false;
     boolean result_;
@@ -404,7 +386,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <pointer_char>+
   public static boolean pointer_string(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "pointer_string")) return false;
-    if (!nextTokenIs(builder_, _POINTER_CHAR_)) return false;
+    if (!nextTokenIs(builder_, POINTER_CHAR)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = pointer_char(builder_, level_ + 1);
@@ -421,7 +403,7 @@ public class GedcomParser implements PsiParser, LightPsiParser {
   // <alphanum>+
   public static boolean tag(PsiBuilder builder_, int level_) {
     if (!recursion_guard_(builder_, level_, "tag")) return false;
-    if (!nextTokenIs(builder_, _ALPHANUM_)) return false;
+    if (!nextTokenIs(builder_, ALPHANUM)) return false;
     boolean result_;
     Marker marker_ = enter_section_(builder_);
     result_ = alphanum(builder_, level_ + 1);

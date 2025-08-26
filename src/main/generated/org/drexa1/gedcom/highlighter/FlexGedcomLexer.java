@@ -4,7 +4,7 @@
 package org.drexa1.gedcom.highlighter;
 
 import com.intellij.psi.tree.IElementType;
-import org.drexa1.gedcom.highlighter.GedcomTokens;
+import org.drexa1.gedcom.psi.GedcomTypes;
 
 
 public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
@@ -17,7 +17,6 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
 
   /** lexical states */
   public static final int YYINITIAL = 0;
-  public static final int VALUE_STATE = 2;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -26,7 +25,7 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = {
-     0,  0,  1, 1
+     0, 0
   };
 
   /**
@@ -35,7 +34,7 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_CMAP_TOP = zzUnpackcmap_top();
 
   private static final String ZZ_CMAP_TOP_PACKED_0 =
-    "\1\0\37\u0100\1\u0200\267\u0100\10\u0300\u1020\u0100";
+    "\1\0\u10ff\u0100";
 
   private static int [] zzUnpackcmap_top() {
     int [] result = new int[4352];
@@ -63,12 +62,12 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_CMAP_BLOCKS = zzUnpackcmap_blocks();
 
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
-    "\11\0\1\1\1\2\2\3\1\4\22\0\1\1\17\0"+
-    "\12\5\6\0\1\6\32\7\4\0\1\10\45\0\1\3"+
-    "\u01a2\0\2\3\326\0\u0100\3";
+    "\11\0\1\1\1\2\2\0\1\3\22\0\1\1\2\4"+
+    "\1\5\1\4\1\0\12\4\12\6\6\0\1\7\32\10"+
+    "\4\0\1\10\1\0\32\10\u0185\0";
 
   private static int [] zzUnpackcmap_blocks() {
-    int [] result = new int[1024];
+    int [] result = new int[512];
     int offset = 0;
     offset = zzUnpackcmap_blocks(ZZ_CMAP_BLOCKS_PACKED_0, offset, result);
     return result;
@@ -92,12 +91,11 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\1\3\1\0\1\4\1\1\1\5"+
-    "\1\1\1\2\1\6\1\4\1\1\1\5\1\0\1\6"+
-    "\2\7";
+    "\1\0\1\1\2\2\1\3\1\4\1\0\1\5\5\0"+
+    "\1\6\1\0\2\7";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[19];
+    int [] result = new int[17];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -122,12 +120,12 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\11\0\22\0\33\0\22\0\44\0\55\0\66"+
-    "\0\77\0\110\0\121\0\110\0\132\0\143\0\154\0\165"+
-    "\0\176\0\22\0\110";
+    "\0\0\0\11\0\22\0\33\0\22\0\22\0\44\0\22"+
+    "\0\55\0\66\0\77\0\110\0\121\0\22\0\132\0\143"+
+    "\0\154";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[19];
+    int [] result = new int[17];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -150,18 +148,15 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpacktrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\5\1\0\1\6\1\7\1\10\2\11"+
-    "\1\12\1\13\1\5\1\14\1\6\1\15\1\16\2\17"+
-    "\12\0\1\4\11\0\1\5\13\0\1\7\10\0\1\20"+
-    "\1\0\1\20\10\0\2\11\2\14\1\0\1\14\1\0"+
-    "\5\14\1\13\1\0\1\14\1\0\6\14\1\0\1\14"+
-    "\1\0\1\15\5\14\1\0\1\14\1\0\1\21\1\14"+
-    "\1\21\3\14\1\0\1\14\1\0\2\14\2\17\5\0"+
-    "\1\20\1\22\1\20\1\0\2\14\1\0\1\14\1\0"+
-    "\1\21\1\23\1\21\1\14";
+    "\1\0\1\2\1\3\1\4\1\5\1\0\1\6\1\7"+
+    "\1\10\1\0\1\2\22\0\1\3\13\0\1\11\1\12"+
+    "\1\0\1\13\6\0\1\14\1\0\1\15\6\0\1\12"+
+    "\1\16\10\0\1\16\1\13\6\0\1\14\1\17\10\0"+
+    "\1\17\1\15\6\0\1\20\1\0\1\21\6\0\1\20"+
+    "\12\0\1\21";
 
   private static int [] zzUnpacktrans() {
-    int [] result = new int[135];
+    int [] result = new int[117];
     int offset = 0;
     offset = zzUnpacktrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -199,11 +194,11 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\1\11\1\1\1\11\1\0\11\1\1\0\1\1"+
-    "\1\11\1\1";
+    "\1\0\1\1\1\11\1\1\2\11\1\0\1\11\5\0"+
+    "\1\11\1\0\2\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[19];
+    int [] result = new int[17];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -269,19 +264,6 @@ public class FlexGedcomLexer implements com.intellij.lexer.FlexLexer {
   /** Whether the user-EOF-code has already been executed. */
   @SuppressWarnings("unused")
   private boolean zzEOFDone;
-
-  /* user code: */
-
-// Detect numeric level
-boolean isLevel(String text) {
-    try {
-        Integer.parseInt(text.trim());
-        return true;
-    } catch (NumberFormatException e) {
-        return false;
-    }
-}
-
 
 
   /**
@@ -526,42 +508,37 @@ boolean isLevel(String text) {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { yybegin(VALUE_STATE); return GedcomTokens.VALUE;
+            { /* skip whitespace */
             }
           // fall through
           case 8: break;
           case 2:
-            { /* skip whitespace */
+            { return GedcomTypes.EOL;
             }
           // fall through
           case 9: break;
           case 3:
-            { /* skip newline */
+            { return GedcomTypes.OTHERCHAR;
             }
           // fall through
           case 10: break;
           case 4:
-            { if (isLevel(yytext().toString())) {
-                                return GedcomTokens.LEVEL;
-                            } else {
-                                return GedcomTokens.BAD_CHARACTER;
-                            }
+            { return GedcomTypes.DIGIT;
             }
           // fall through
           case 11: break;
           case 5:
-            { return GedcomTokens.TAG;
+            { return GedcomTypes.ALPHA;
             }
           // fall through
           case 12: break;
           case 6:
-            { yybegin(YYINITIAL);
-                            return GedcomTokens.VALUE;
+            { return GedcomTypes.POINTER;
             }
           // fall through
           case 13: break;
           case 7:
-            { return GedcomTokens.VALUE;
+            { return GedcomTypes.ESCAPE;
             }
           // fall through
           case 14: break;

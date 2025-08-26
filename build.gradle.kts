@@ -101,11 +101,12 @@ tasks {
         pathToParser.set("org/drexa1/gedcom/parser/GedcomParser.java")
         pathToPsiRoot.set("org/drexa1/gedcom/psi")
         purgeOldFiles.set(true)
-    }
-    compileKotlin {
         dependsOn(generateLexer)
     }
     compileJava {
+        dependsOn(generateLexer)
+    }
+    compileKotlin {
         dependsOn(generateLexer)
     }
     processResources {

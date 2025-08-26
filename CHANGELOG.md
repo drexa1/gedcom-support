@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.0] - Aug 26, 2025
+### Added
+- Support to follow references
+
 ## [1.3.0] - Aug 24, 2025
 ### Added
 - Improved lexer to support META, INDI & FAM code sections
