@@ -7,6 +7,7 @@ import java.lang.Character.isWhitespace
 import kotlin.concurrent.atomics.AtomicInt
 import org.drexa1.gedcom.highlighter.GedcomSyntaxHighlighter.Pointer
 import org.drexa1.gedcom.highlighter.GedcomSyntaxHighlighter.SectionType
+import kotlin.enums.enumEntries
 
 data class GedcomLTV(var level: Int?, var id: String?, var tag: String?, var value: String?)
 
@@ -98,12 +99,11 @@ class GedcomLexer : LexerBase() {
     fun verify() {
         try {
             assert(getTokenEnd() > getTokenStart()) { "tokenStart < tokenEnd" }
-            assert(tokenLength.load() == tokenSequence.length) { "offset length > token length" }
-            /* println("token: <<${if (tokenType == GedcomTokens.NEW_LINE_INDENT) "\\n" else tokenSequence}>> - " +
+            println("token: <<${if (tokenType == GedcomTokens.NEW_LINE_INDENT) "\\n" else tokenSequence}>> - " +
                     "tokenStart: '${getTokenStart()}', " +
                     "tokenEnd: ${getTokenEnd()} " +
                     "(tokenLength: $tokenLength) -> " +
-                    "tokenType: $tokenType") */
+                    "tokenType: $tokenType")
         } catch(e: Exception) {
             println("ERROR: ${e.message}")
         }
@@ -157,7 +157,7 @@ class GedcomLexer : LexerBase() {
                     val isLastArgument = buffer.subSequence(startOffset.load(), nextLineStart - 1).toString().split(' ').size == 1
                     if (isLastArgument) value = pointerCandidate else id = pointerCandidate
                 }
-                return when (pointerCandidate.firstOrNull()) {
+                when (pointerCandidate.firstOrNull()) {
                     'I' -> Pointer.INDI
                     'F' -> Pointer.FAM
                     else -> Pointer.GEN
@@ -178,11 +178,11 @@ class GedcomLexer : LexerBase() {
         try {
             val tagCandidate = tokenCandidate()
             // See if it's a recognizable tag
-            return if (enumValues<GedcomTags>().any { it.name == tagCandidate }) {
+            return if (enumEntries<GedcomTags>().any { it.name == tagCandidate }) {
                 // Save token length for offset bump
                 tokenLength.store(tagCandidate.length)
                 currentLTV.tag = tagCandidate
-                return true
+                true
             } else false
         } catch (_: Exception) {
             return false
@@ -201,7 +201,7 @@ class GedcomLexer : LexerBase() {
                 // Save token length for offset bump
                 tokenLength.store(valueCandidate.length)
                 currentLTV.value = valueCandidate
-                return true
+                true
             } else false
         } catch (e: Exception) {
             println("ERROR: ${e.message}")

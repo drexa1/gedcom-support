@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.4.1] - Aug 26, 2025
+### Added
+- An end-user has reported an exception affecting the lexer when upgrading to the latest version of IntelliJ. This fix attempts to mitigate it
+
 ## [1.4.0] - Aug 26, 2025
 ### Added
 - Support to follow references
